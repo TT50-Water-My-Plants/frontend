@@ -2,18 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 80vh;
-  align-items: center;
+  height: 70vh;
   width: 100%;
   color: #222222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 `;
 
 const InnerDiv = styled.div`
   background-color: white;
-  width: 35%;
+  width: 30%;
   color: #006a4e;
   border: 3px solid black;
   border-radius: 5%;
