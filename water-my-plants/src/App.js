@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import * as yup from "yup";
 import loginFormSchema from "./js/utils/loginFormSchema";
-import Home from "./Home";
-import Header from "./Header";
+import Home from "./js/components/Home";
+import Header from "./js/components/Header";
 import Register from "./Register";
 import Login from "./Login";
 
