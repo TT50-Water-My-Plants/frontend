@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 const StyledDiv = styled.div`
   height: 80vh;
-  width: 35%;
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid black; */
   color: #222222;
 `;
 
@@ -17,6 +17,7 @@ export default function Register(props) {
   return (
     <div>
       <StyledDiv>
+        <h2>Registration form</h2>
         <form onSubmit={onSubmit}>
           <label htmlFor="username">
             Username: <br />
@@ -25,7 +26,7 @@ export default function Register(props) {
               type="text"
               name="username"
               data-cy="username"
-              placeholder="Enter your username here"
+              placeholder="Enter your username"
               onChange={onChange}
               value={formState.username}
             />
@@ -39,7 +40,7 @@ export default function Register(props) {
             <input
               id="phone_number"
               type="text"
-              placeholder="Enter your phone number"
+              placeholder="Enter your phone #"
               data-cy="phone_number"
               name="phone_number"
               onChange={onChange}
@@ -55,30 +56,17 @@ export default function Register(props) {
               name="password"
               data-cy="password"
               id="password"
+              placeholder="Create a password"
               value={formState.password}
               onChange={onChange}
             />
           </label>
           <p data-cy="password-err">{errorState.password}</p>
-          {/* <label htmlFor="message">
-            Your Message: <br />
-            <textarea
-              id="message"
-              rows="10"
-              cols="20"
-              name="message"
-              onChange={onChange}
-              value={formState.message}
-            />
-          </label> */}
-          <br />
 
           <input type="submit" value="Click to submit" />
         </form>
       </StyledDiv>
-      {/* <div className="image-container">
-       
-      </div> */}
     </div>
   );
+  gi;
 }
