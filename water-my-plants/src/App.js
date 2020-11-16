@@ -1,9 +1,17 @@
 import "./App.css";
+import { Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <h1>Water My Plants 🥳 </h1>
+      <Switch>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
+      </Switch>
     </div>
   );
 }
