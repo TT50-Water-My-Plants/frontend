@@ -29,10 +29,10 @@ export default function Register(props) {
               value={formState.name}
             />
           </label>
-          {/* <p data-cy="email-err" className="error">
-            {errorState.name}
-          </p> */}
           <br />
+          <p data-cy="email-err" className="error">
+            {errorState.name}
+          </p>
 
           <label htmlFor="email">
             E-mail:
@@ -48,6 +48,9 @@ export default function Register(props) {
             />
           </label>
           <br />
+          <p data-cy="email-err" className="error">
+            {errorState.email}
+          </p>
           <label htmlFor="message">
             Your Message: <br />
             <textarea
@@ -60,6 +63,7 @@ export default function Register(props) {
             />
           </label>
           <br />
+
           <input type="submit" value="Click to submit" />
         </form>
       </StyledDiv>

@@ -60,6 +60,7 @@ function App() {
       <Switch>
         <Route path="/register">
           <Register
+            errorState={errorState}
             onChange={onChange}
             formState={formState}
             onSubmit={onSubmit}
