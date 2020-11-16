@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import * as yup from "yup";
+import axios from "axios";
 import formSchema from "./formSchema";
 import Home from "./Home";
 import Header from "./Header";
@@ -9,19 +10,20 @@ import Register from "./Register";
 
 function App() {
   const intiailFormValues = {
-    name: "",
-    email: "",
-    message: ""
+    username: "",
+    phone_number: "",
+    password: ""
   };
 
   const defaultErrors = {
-    name: "",
-    email: "",
-    message: ""
+    username: "",
+    phone_number: "",
+    password: ""
   };
 
   const [formState, setFormState] = useState(intiailFormValues);
   const [errorState, setErrorState] = useState(defaultErrors);
+  const [user, setUser] = useState([]);
 
   const validate = event => {
     yup
@@ -48,11 +50,24 @@ function App() {
   };
 
   const onSubmit = event => {
-    setFormState({
-      name: "",
-      email: "",
-      message: ""
-    });
+    event.preventDefault();
+    axios
+      .post(
+        "https://water-my-plants-tt50.herokuapp.com/api/auth/register",
+        formState
+      )
+      .then(res => {
+        console.log(res, "RES HERE!!!!");
+        setUser(arr => [...arr, res.data]);
+        setFormState({
+          username: "",
+          phone_number: "",
+          password: ""
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   return (
     <div className="App">

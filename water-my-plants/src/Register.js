@@ -3,10 +3,11 @@ import styled from "styled-components";
 
 const StyledDiv = styled.div`
   height: 80vh;
+  width: 35%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   color: #222222;
 `;
 
@@ -17,41 +18,49 @@ export default function Register(props) {
     <div>
       <StyledDiv>
         <form onSubmit={onSubmit}>
-          <label htmlFor="name">
-            Name: <br />
+          <label htmlFor="username">
+            Username: <br />
             <input
-              id="name"
+              id="username"
               type="text"
-              name="name"
-              data-cy="name"
-              placeholder="Enter your name here"
+              name="username"
+              data-cy="username"
+              placeholder="Enter your username here"
               onChange={onChange}
-              value={formState.name}
+              value={formState.username}
             />
           </label>
           <br />
-          <p data-cy="email-err" className="error">
-            {errorState.name}
-          </p>
+          <p data-cy="usernam-err">{errorState.username}</p>
 
-          <label htmlFor="email">
-            E-mail:
+          <label htmlFor="phone_number">
+            Phone number:
             <br />
             <input
-              id="email"
-              type="email"
-              placeholder="Enter your e-mail"
-              data-cy="email"
-              name="email"
+              id="phone_number"
+              type="text"
+              placeholder="Enter your phone number"
+              data-cy="phone_number"
+              name="phone_number"
               onChange={onChange}
-              value={formState.email}
+              value={formState.phone_number}
             />
           </label>
           <br />
-          <p data-cy="email-err" className="error">
-            {errorState.email}
-          </p>
-          <label htmlFor="message">
+          <p data-cy="phone-err">{errorState.phone_number}</p>
+          <label htmlFor="password">
+            Password: <br />
+            <input
+              type="password"
+              name="password"
+              data-cy="password"
+              id="password"
+              value={formState.password}
+              onChange={onChange}
+            />
+          </label>
+          <p data-cy="password-err">{errorState.password}</p>
+          {/* <label htmlFor="message">
             Your Message: <br />
             <textarea
               id="message"
@@ -61,12 +70,15 @@ export default function Register(props) {
               onChange={onChange}
               value={formState.message}
             />
-          </label>
+          </label> */}
           <br />
 
           <input type="submit" value="Click to submit" />
         </form>
       </StyledDiv>
+      {/* <div className="image-container">
+       
+      </div> */}
     </div>
   );
 }

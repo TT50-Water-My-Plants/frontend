@@ -1,12 +1,15 @@
 import * as yup from "yup";
 
 const formSchema = yup.object().shape({
-  name: yup
+  username: yup
     .string()
     .min(2)
     .required("Name is a required field"),
-  email: yup.string().required("E-mail is required"),
-  message: yup.string()
+  phone_number: yup.string().required("Please add phone number"),
+  password: yup
+    .string()
+    .min(5)
+    .required("Must enter a password")
 });
 
 export default formSchema;
