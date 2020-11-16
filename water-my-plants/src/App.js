@@ -6,6 +6,8 @@ function App() {
   return (
     <div className="App">
       <Switch>
+        <Route path="/register"></Route>
+        <Route path="/login"></Route>
         <Route path="/about">{/* <About /> */}</Route>
         <Route exact path="/">
           <Home />
