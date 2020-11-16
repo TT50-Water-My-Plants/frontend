@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
 `;
 
 export default function Register(props) {
-  const { onChange, formState, onSubmit } = props;
+  const { onChange, formState, onSubmit, errorState } = props;
 
   return (
     <div>
@@ -20,6 +20,7 @@ export default function Register(props) {
           <label htmlFor="name">
             Name: <br />
             <input
+              id="name"
               type="text"
               name="name"
               data-cy="name"
@@ -28,12 +29,16 @@ export default function Register(props) {
               value={formState.name}
             />
           </label>
+          {/* <p data-cy="email-err" className="error">
+            {errorState.name}
+          </p> */}
           <br />
 
           <label htmlFor="email">
             E-mail:
             <br />
             <input
+              id="email"
               type="email"
               placeholder="Enter your e-mail"
               data-cy="email"
@@ -46,6 +51,7 @@ export default function Register(props) {
           <label htmlFor="message">
             Your Message: <br />
             <textarea
+              id="message"
               rows="10"
               cols="20"
               name="message"
