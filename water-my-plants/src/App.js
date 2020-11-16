@@ -5,7 +5,7 @@ import * as yup from "yup";
 import axios from "axios";
 import formSchema from "./formSchema";
 import Home from "./Home";
-import Header from "./Header";
+import Header from "./js/components/Header";
 import Register from "./Register";
 
 function App() {

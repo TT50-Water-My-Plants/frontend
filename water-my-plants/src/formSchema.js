@@ -4,12 +4,9 @@ const formSchema = yup.object().shape({
   username: yup
     .string()
     .min(2)
-    .required("Name is a required field"),
-  phone_number: yup.string().required("Please add phone number"),
-  password: yup
-    .string()
-    .min(5)
-    .required("Must enter a password")
+    .required("username is required"),
+  email: yup.string().required("an email address is required"),
+  password: yup.string().required("a password is required")
 });
 
 export default formSchema;

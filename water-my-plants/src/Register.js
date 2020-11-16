@@ -68,5 +68,4 @@ export default function Register(props) {
       </StyledDiv>
     </div>
   );
-  gi;
 }
