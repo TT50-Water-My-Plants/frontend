@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 
-import formSchema from "./formSchema";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { useHistory } from "react-router-dom";
+import loginFormSchema from "./js/utils/loginFormSchema";
+
+import { axiosWithAuth } from "./js/utils/axiosWithAuth";
+import { useHistory, Link } from "react-router-dom";
+
+import styled from "styled-components";
 
 const loginValues = {
   username: "",
@@ -21,59 +18,40 @@ const loginError = {
 };
 const initialDisabled = true;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: "25ch",
-  },
-  cardroot: {
-    minWidth: 275,
-  },
-
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-}));
+const StyledLogin = styled.div`
+  background-color: green;
+  min-height: 80vh;
+  width: 100%;
+  display: flex;
+`;
 
 export default function LogIn() {
   const history = useHistory();
-  const classes = useStyles();
   const [disabled, setDisabled] = useState(initialDisabled);
-  const [lFormValues, setLFormValues] = useState(loginValues);
-  const [lFormErrors, setLFormErrors] = useState(loginError);
+  const [loginFormValues, setloginFormValues] = useState(loginValues);
+  const [loginFormErrors, setloginFormErrors] = useState(loginError);
 
   const onChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
     yup
-      .reach(LFormSchema, name)
+      .reach(loginFormSchema, name)
       .validate(value)
       .then((valid) => {
-        setLFormErrors({
-          ...lFormErrors,
+        setloginFormErrors({
+          ...loginFormErrors,
           [name]: "",
         });
       })
       .catch((e) => {
-        setLFormErrors({
-          ...lFormErrors,
+        setloginFormErrors({
+          ...loginFormErrors,
           [name]: e.errors[0],
         });
       });
-    setLFormValues({
-      ...lFormValues,
+    setloginFormValues({
+      ...loginFormValues,
       [name]: value,
     });
   };
@@ -82,8 +60,8 @@ export default function LogIn() {
     event.preventDefault();
     localStorage.removeItem("token");
     const user = {
-      username: lFormValues.username.trim(),
-      password: lFormValues.password.trim(),
+      username: loginFormValues.username.trim(),
+      password: loginFormValues.password.trim(),
     };
     axiosWithAuth()
       .post(
@@ -91,7 +69,7 @@ export default function LogIn() {
         `grant_type=password&username=${user.username}&password=${user.password}`,
         {
           headers: {
-            Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+            Authorization: `Basic ${btoa("")}`,
             "Content-Type": "application/x-www-form-urlencoded",
           },
         }
@@ -102,65 +80,57 @@ export default function LogIn() {
         history.push("/");
       })
       .catch((e) => {
-        throw `Everything is broken forever: ${e}`;
+        throw e;
       });
   };
 
   useEffect(() => {
-    formSchema.isValid(lFormValues).then((valid) => {
+    loginFormSchema.isValid(loginFormValues).then((valid) => {
       setDisabled(!valid);
     });
-  }, []);
+  }, [loginFormValues]);
 
   useEffect(() => {
-    console.log(lFormValues);
-  }, [lFormValues]);
+    console.log(loginFormValues);
+  }, [loginFormValues]);
 
   return (
-    <div className={classes.root}>
-      <Card className={classes.cardroot} variant='outlined'>
-        <h1>Log In</h1>
-        <CardContent>
-          <div>
-            <TextField
-              id='username-field'
-              className={classes.textField}
-              label='username'
-              type='username'
-              name='username'
-              //   value={.username}
-              onChange={onChange}
-              placeholder=''
-              margin='normal'
-            />
+    <StyledLogin>
+      <form onSubmit={onSubmit}>
+        <h1>Login</h1>
+        <div>
+          <input
+            type='text'
+            name='username'
+            placeholder='Username'
+            value={loginFormValues.username}
+            onChange={onChange}
+          />
+          <div className='error' style={{ color: "red" }}>
+            {loginFormErrors.username}
           </div>
-          <div>
-            <TextField
-              id='password-input'
-              placeholder='********'
-              className={classes.textField}
-              helperText='Password'
-              name='password'
-              type='password'
-              //   value={.password}
-              onChange={onChange}
-            />
+        </div>
+        <div>
+          <input
+            type='password'
+            name='password'
+            placeholder='Password'
+            value={loginFormValues.password}
+            onChange={onChange}
+          />
+          <div className='error' style={{ color: "red" }}>
+            {loginFormErrors.password}
           </div>
-          {/* <div className='errors'>
-            <div>{.username}</div>
-            <div>{.password}</div> */}
-          {/* </div> */}
-        </CardContent>
-        <CardActions>
-          <Button
-            id='submit-button'
-            variant='contained'
-            onClick={onSubmit}
-            disabled={disabled}>
-            Log In
-          </Button>
-        </CardActions>
-      </Card>
-    </div>
+        </div>
+        <div>
+          <button id='submit' className='disabled' disabled={disabled}>
+            Submit
+          </button>
+        </div>
+        <Link to='/register'>
+          Don't have an account? Click Here To Create One
+        </Link>
+      </form>
+    </StyledLogin>
   );
 }
