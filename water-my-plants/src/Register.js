@@ -19,6 +19,7 @@ const StyledForm = styled.div`
   color: white;
   text-shadow: 2px 2px black;
   background-color: #006a4e;
+  border-radius: 5%;
   width: 40%;
   height: 50vh;
   display: flex;
