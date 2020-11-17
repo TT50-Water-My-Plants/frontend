@@ -93,7 +93,7 @@ export default function Register(props) {
             />
           </label>
           <br />
-          <p data-cy="usernam-err">{errorState.username}</p>
+          <p data-cy="username-err">{errorState.username}</p>
 
           <label htmlFor="phone_number">
             Phone number:
