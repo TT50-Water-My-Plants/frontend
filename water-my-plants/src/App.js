@@ -9,6 +9,7 @@ import DashboardContainer from "./containers/DashboardContainer"
 import AddPlantContainer from "./containers/AddPlantContainer"
 import ViewPlantContainer from "./containers/ViewPlantContainer"
 import EditPlantContainer from "./containers/EditPlantContainer"
+import About from "./js/components/About";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Header />
       <Switch>
         <Route path="/register" component={Register} />
+        <Route path="/about" component={About} />
         <Route path="/login" component={Login} />
         <Route exact path="/" component={Home} />
         <PrivateRoute path="/dashboard" component={DashboardContainer} />
