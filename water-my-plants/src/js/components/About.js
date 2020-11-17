@@ -11,7 +11,6 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 90vh;
-  /* flex-direction: column;*/
   justify-content: space-around;
   align-items: center;
   background-color: #8abaae;

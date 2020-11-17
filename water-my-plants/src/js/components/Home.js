@@ -23,7 +23,7 @@ const AboutDiv = styled.div`
 
 const InnerDiv = styled.div`
   background-color: white;
-  width: 30%;
+  width: 50%;
   color: #006a4e;
   border: 3px solid black;
   border-radius: 5%;
