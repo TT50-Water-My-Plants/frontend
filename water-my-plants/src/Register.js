@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import plantImg from "../src/images/pic01.jpg";
-
+import { useHistory } from "react-router-dom"
 import formSchema from "./formSchema";
 import axios from "axios";
 import * as yup from "yup";
@@ -37,29 +37,27 @@ const StyledImg = styled.img`
 
 export default function Register(props) {
   const [buttonDisabled, setButtonDisabled] = useState(true);
-
+  const history = useHistory()
   const intiailFormValues = {
     username: "",
     phone_number: "",
-    password: ""
+    password: "",
   };
 
   const defaultErrors = {
     username: "",
     phone_number: "",
-    password: ""
+    password: "",
   };
 
   const [formState, setFormState] = useState(intiailFormValues);
   const [errorState, setErrorState] = useState(defaultErrors);
-  const [user, setUser] = useState([]);
 
   const validate = event => {
     yup
       .reach(formSchema, event.target.name)
       .validate(event.target.value)
       .then(valid => {
-        console.log(event.target.value, "VALUE HERE");
         setErrorState({ ...errorState, [event.target.name]: "" });
       })
       .catch(err => {
@@ -92,13 +90,12 @@ export default function Register(props) {
         formState
       )
       .then(res => {
-        console.log(res, "RES HERE!!!!");
-        setUser(arr => [...arr, res.data]);
         setFormState({
           username: "",
           phone_number: "",
           password: ""
         });
+        history.push("/login")
       })
       .catch(err => {
         console.log(err);

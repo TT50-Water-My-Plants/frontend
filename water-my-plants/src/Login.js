@@ -3,10 +3,12 @@ import * as yup from "yup";
 
 import loginFormSchema from "./js/utils/loginFormSchema";
 
-import { axiosWithAuth } from "./js/utils/axiosWithAuth";
+import axios from "axios"
 import { useHistory, Link } from "react-router-dom";
-
+import { axiosWithAuth } from "./auth/axiosWithAuth"
 import styled from "styled-components";
+import { connect } from "react-redux"
+import { setUser, setLoggedStatus } from "./actions"
 
 const loginValues = {
   username: "",
@@ -25,7 +27,7 @@ const StyledLogin = styled.div`
   display: flex;
 `;
 
-export default function Login() {
+function Login({setLoggedStatus, setUser}) {
   const history = useHistory();
   const [disabled, setDisabled] = useState(initialDisabled);
   const [loginFormValues, setloginFormValues] = useState(loginValues);
@@ -58,29 +60,26 @@ export default function Login() {
 
   const onSubmit = event => {
     event.preventDefault();
-    localStorage.removeItem("token");
-    const user = {
-      username: loginFormValues.username.trim(),
-      password: loginFormValues.password.trim()
-    };
-    axiosWithAuth()
-      .post(
-        "/login",
-        `grant_type=password&username=${user.username}&password=${user.password}`,
-        {
-          headers: {
-            Authorization: `Basic ${btoa("")}`,
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        }
-      )
+    axios
+      .post("https://water-my-plants-tt50.herokuapp.com/api/auth/login", loginFormValues)
       .then(res => {
-        console.log(res);
-        localStorage.setItem("token", res.data.access_token);
-        history.push("/");
+        localStorage.setItem("token", res.data.token);
+        axiosWithAuth()
+          .get("/api/account")
+          .then(response => {
+            setLoggedStatus(true)
+            setUser(response.data.jwt)
+          })
+          .then(item => {
+            history.push("/dashboard");
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        
       })
       .catch(e => {
-        throw e;
+        console.log(e)
       });
   };
 
@@ -88,10 +87,6 @@ export default function Login() {
     loginFormSchema.isValid(loginFormValues).then(valid => {
       setDisabled(!valid);
     });
-  }, [loginFormValues]);
-
-  useEffect(() => {
-    console.log(loginFormValues);
   }, [loginFormValues]);
 
   return (
@@ -140,3 +135,10 @@ export default function Login() {
     </StyledLogin>
   );
 }
+
+const mapDispatchToProps = {
+  setUser,
+  setLoggedStatus,
+};
+
+export default connect(null, mapDispatchToProps)(Login)
