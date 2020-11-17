@@ -1,29 +1,18 @@
-import "./App.css";
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import * as yup from "yup";
-import axios from "axios";
-import formSchema from "./formSchema";
-import Home from "./Home";
-import Header from "./js/components/Header";
+import Home from "../src/js/components/Home";
+import Header from "../src/js/components/Header";
 import Register from "./Register";
+import Login from "../src/Login";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Switch>
-        <Route path="/register">
-          <Register
-            errorState={errorState}
-            onChange={onChange}
-            formState={formState}
-            onSubmit={onSubmit}
-          />
-        </Route>
-        <Route path="/login"></Route>
-        <Route path="/about">{/* <About /> */}</Route>
-        <Route exact path="/">
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route exact path="/" component={Home}>
           <Home />
         </Route>
       </Switch>
