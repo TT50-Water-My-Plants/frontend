@@ -16,14 +16,17 @@ const StyledDiv = styled.div`
 `;
 
 const StyledForm = styled.div`
-  color: #222222;
+  color: white;
+  text-shadow: 2px 2px black;
+  background-color: #006a4e;
   width: 40%;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   line-height: 1.5;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 `;
 
 const StyledImg = styled.img`
