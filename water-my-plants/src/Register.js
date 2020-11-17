@@ -5,12 +5,15 @@ import axios from "axios";
 import * as yup from "yup";
 
 const StyledDiv = styled.div`
-  height: 80vh;
+  height: 90vh;
   width: 100%;
   display: flex;
+  color: #222222;
+  background-color: #b8d5cd;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   color: #222222;
 `;
 

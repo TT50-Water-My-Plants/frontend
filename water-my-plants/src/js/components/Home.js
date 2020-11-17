@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-  height: 80vh;
+  height: 90vh;
   width: 100%;
+  background-color: #b8d5cd;
   color: #222222;
   display: flex;
   flex-direction: column;
