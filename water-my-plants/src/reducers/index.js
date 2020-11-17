@@ -1,9 +1,10 @@
-import { SET_LOGGED_STATUS, SET_USER, SET_PLANTS, ADD_PLANT, EDIT_PLANT, DELETE_PLANT } from '../actions'
+import { SET_LOGGED_STATUS, SET_USER, SET_PLANTS, SET_USER_PLANTS, ADD_PLANT, EDIT_PLANT, DELETE_PLANT } from '../actions'
 
 const initialState = {
   user: null,
   isLoggedIn: false,
   plants: [],
+  userPlants: [],
   isFetching: false,
   error: "",
 }
@@ -24,6 +25,11 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         plants: action.payload
+      }
+    case SET_USER_PLANTS:
+      return {
+        ...state,
+        userPlants: action.payload
       }
     case ADD_PLANT:
       return {

@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { connect } from "react-redux"
+import { setLoggedStatus } from "../../actions"
 
 const StyledDiv = styled.div`
   background: url("https://images.unsplash.com/photo-1525923838299-2312b60f6d69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=564&q=80");
@@ -17,16 +18,19 @@ const StyledText = styled.span`
   font-size: 1.5rem;
 `;
 
-function Header({isLoggedIn}) {
+function Header({isLoggedIn, setLoggedStatus}) {
+  const history = useHistory()
   const handleLogout = () => {
-    console.log("Logged Out")
+    localStorage.removeItem("token")
+    setLoggedStatus(false)
+    history.push("/login")
   }
   return (
     <div>
       {isLoggedIn ? (
         <StyledDiv>
-          <Link to="/plants">
-            <StyledText>Plants</StyledText>
+          <Link to="/dashboard">
+            <StyledText>Dashboard</StyledText>
           </Link>
           <Link to="/add-plant">
             <StyledText>Add Plant</StyledText>
@@ -34,9 +38,7 @@ function Header({isLoggedIn}) {
           <Link to="/Edit Account">
             <StyledText>Edit Account</StyledText>
           </Link>
-          <button onClick={handleLogout}>
-            <StyledText>Logout</StyledText>
-          </button>
+          <button onClick={handleLogout}>Logout</button>
         </StyledDiv>
       ) : (
         <StyledDiv>
@@ -63,5 +65,9 @@ const mapStateToProps = (state) => ({
   isLoggedIn: state.isLoggedIn
 })
 
+const mapDispatchToProps = {
+  setLoggedStatus
+}
 
-export default connect(mapStateToProps)(Header);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

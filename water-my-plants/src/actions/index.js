@@ -1,6 +1,7 @@
 export const SET_LOGGED_STATUS = "SET_LOGGED_STATUS"
 export const SET_USER = "SET_USER"
 export const SET_PLANTS = "SET_PLANTS"
+export const SET_USER_PLANTS = "SET_USER_PLANTS"
 export const ADD_PLANT = "ADD_PLANT"
 export const EDIT_PLANT = "EDIT_PLANT"
 export const DELETE_PLANT = "DELETE_PLANT"
@@ -22,6 +23,13 @@ export const setUser = user => {
 export const setPlants = plants => {
   return {
     type: SET_PLANTS,
+    payload: plants
+  }
+}
+
+export const setUserPlants = plants => {
+  return {
+    type: SET_USER_PLANTS,
     payload: plants
   }
 }

@@ -1,16 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Dashboard from "../components/Dashboard"
-import {setUser, setLoggedStatus, setPlants} from "../actions"
+import {setUser, setLoggedStatus, setUserPlants, setPlants} from "../actions"
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  plants: state.plants
+  userPlants: state.userPlants
 })
 
 const mapDispatchToProps = {
   setUser,
   setLoggedStatus,
+  setUserPlants,
   setPlants
 };
 

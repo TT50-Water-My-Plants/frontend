@@ -5,7 +5,6 @@ import loginFormSchema from "./js/utils/loginFormSchema";
 
 import axios from "axios"
 import { useHistory, Link } from "react-router-dom";
-import { axiosWithAuth } from "./auth/axiosWithAuth"
 import styled from "styled-components";
 import { connect } from "react-redux"
 import { setUser, setLoggedStatus } from "./actions"
@@ -63,24 +62,13 @@ function Login({setLoggedStatus, setUser}) {
     axios
       .post("https://water-my-plants-tt50.herokuapp.com/api/auth/login", loginFormValues)
       .then(res => {
-        localStorage.setItem("token", res.data.token);
-        axiosWithAuth()
-          .get("/api/account")
-          .then(response => {
-            setLoggedStatus(true)
-            setUser(response.data.jwt)
-          })
-          .then(item => {
-            history.push("/dashboard");
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        
+        localStorage.setItem("token", res.data.token)
+        localStorage.setItem("user_id", res.data.user_id)
+        setLoggedStatus(true)
       })
-      .catch(e => {
-        console.log(e)
-      });
+      .then(response => {
+        history.push("/dashboard")
+      })
   };
 
   useEffect(() => {

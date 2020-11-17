@@ -10,6 +10,7 @@ import AddPlantContainer from "./containers/AddPlantContainer"
 import ViewPlantContainer from "./containers/ViewPlantContainer"
 import EditPlantContainer from "./containers/EditPlantContainer"
 import About from "./js/components/About";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (

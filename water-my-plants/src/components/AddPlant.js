@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import {axiosWithAuth} from "../auth/axiosWithAuth"
 
-function AddPlant({user, addPlant}) {
+function AddPlant({user, plants, addPlant, setUserPlants}) {
   const [form, setForm] = useState({
     nickname: "",
     species: "",
     h2o_frequency: ""
   })
+
+  const [selectValue, setSelectValue] = useState("--Plants--")
 
   const [statusMsg, setStatusMsg] = useState("")
 
@@ -18,6 +20,22 @@ function AddPlant({user, addPlant}) {
       [name]: value
     })
   }
+
+  const selectChange = (e) => {
+    const { value, id } = e.target
+    setSelectValue(value)
+  } 
+
+  const selectPlantSubmit = () => {
+    console.log(parseInt(selectValue, 10), parseInt(user.id, 10))
+    axiosWithAuth()
+      .post(`api/plants/${selectValue}/users`, { plant_id: parseInt(selectValue, 10), user_id: parseInt(user.id, 10) })
+      .then(res => {
+        setUserPlants(res.data)
+        setStatusMsg("Plant added!")
+      })
+  }
+
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -38,6 +56,14 @@ function AddPlant({user, addPlant}) {
   }
   return (
     <div>
+      <div>
+        <select value={selectValue} onChange={selectChange}>Plants
+          {plants.map(plant => {
+            return <option key={plant.id} id={plant.id} value={plant.id}>{plant.nickname}</option>
+          })}
+        </select>
+        <button onClick={selectPlantSubmit}>Add Plant</button>
+      </div>
       <p>{statusMsg}</p>
       <form onSubmit={onSubmit}>
         <div>
