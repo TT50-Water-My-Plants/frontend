@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import formSchema from "./formSchema";
 import axios from "axios";
@@ -18,6 +18,8 @@ const StyledDiv = styled.div`
 `;
 
 export default function Register(props) {
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
   const intiailFormValues = {
     username: "",
     phone_number: "",
@@ -47,6 +49,12 @@ export default function Register(props) {
         setErrorState({ ...errorState, [event.target.name]: err.errors[0] });
       });
   };
+
+  useEffect(() => {
+    formSchema.isValid(formState).then(valid => {
+      setButtonDisabled(!valid);
+    });
+  }, [formState]);
 
   const onChange = event => {
     event.persist();
@@ -127,7 +135,11 @@ export default function Register(props) {
           </label>
           <p data-cy="password-err">{errorState.password}</p>
 
-          <input type="submit" value="Click to submit" />
+          <input
+            type="submit"
+            value="Click to submit"
+            disabled={buttonDisabled}
+          />
         </form>
       </StyledDiv>
     </div>
