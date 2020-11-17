@@ -20,10 +20,14 @@ const loginError = {
 const initialDisabled = true;
 
 const StyledLogin = styled.div`
-  background-color: green;
+  background-color: #b8d5cd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5;
+  text-align: center;
   min-height: 80vh;
   width: 100%;
-  display: flex;
 `;
 
 function Login({setLoggedStatus, setUser}) {
