@@ -4,6 +4,7 @@ import Home from "../src/js/components/Home";
 import Header from "../src/js/components/Header";
 import Register from "./Register";
 import Login from "../src/Login";
+import About from "./js/components/About";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Header />
       <Switch>
         <Route path="/register" component={Register} />
+        <Route path="/about" component={About} />
         <Route path="/login" component={Login} />
         <Route exact path="/" component={Home} />
       </Switch>
