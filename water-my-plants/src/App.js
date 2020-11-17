@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "../src/js/components/Home";
 import Header from "../src/js/components/Header";
 import Register from "./Register";
-import Login from "../src/Login";
+import Login from "./Login";
 import PrivateRoute from "./auth/PrivateRoute"
 import DashboardContainer from "./containers/DashboardContainer"
 import AddPlantContainer from "./containers/AddPlantContainer"
