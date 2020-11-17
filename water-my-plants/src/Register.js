@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import plantImg from "../src/images/pic01.jpg";
+
 import formSchema from "./formSchema";
 import axios from "axios";
 import * as yup from "yup";
 
 const StyledDiv = styled.div`
-  height: 90vh;
   width: 100%;
+  height: 90vh;
   display: flex;
-  color: #222222;
   background-color: #b8d5cd;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  text-align: center;
+`;
+
+const StyledForm = styled.div`
   color: #222222;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+  font-size: 1.2rem;
+`;
+
+const StyledImg = styled.img`
+  width: 30%;
+  height: 80vh;
+  object-fit: contain;
 `;
 
 export default function Register(props) {
@@ -89,58 +104,61 @@ export default function Register(props) {
   return (
     <div>
       <StyledDiv>
-        <h2>Registration form</h2>
-        <form onSubmit={onSubmit}>
-          <label htmlFor="username">
-            Username: <br />
-            <input
-              id="username"
-              type="text"
-              name="username"
-              data-cy="username"
-              placeholder="Enter your username"
-              onChange={onChange}
-              value={formState.username}
-            />
-          </label>
-          <br />
-          <p data-cy="username-err">{errorState.username}</p>
-
-          <label htmlFor="phone_number">
-            Phone number:
+        <StyledForm>
+          <h2>Registration form</h2>
+          <form onSubmit={onSubmit}>
+            <label htmlFor="username">
+              Username: <br />
+              <input
+                id="username"
+                type="text"
+                name="username"
+                data-cy="username"
+                placeholder="Enter your username"
+                onChange={onChange}
+                value={formState.username}
+              />
+            </label>
             <br />
-            <input
-              id="phone_number"
-              type="text"
-              placeholder="Enter your phone #"
-              data-cy="phone_number"
-              name="phone_number"
-              onChange={onChange}
-              value={formState.phone_number}
-            />
-          </label>
-          <br />
-          <p data-cy="phone-err">{errorState.phone_number}</p>
-          <label htmlFor="password">
-            Password: <br />
-            <input
-              type="password"
-              name="password"
-              data-cy="password"
-              id="password"
-              placeholder="Create a password"
-              value={formState.password}
-              onChange={onChange}
-            />
-          </label>
-          <p data-cy="password-err">{errorState.password}</p>
+            <p data-cy="username-err">{errorState.username}</p>
 
-          <input
-            type="submit"
-            value="Click to submit"
-            disabled={buttonDisabled}
-          />
-        </form>
+            <label htmlFor="phone_number">
+              Phone number:
+              <br />
+              <input
+                id="phone_number"
+                type="text"
+                placeholder="Enter your phone #"
+                data-cy="phone_number"
+                name="phone_number"
+                onChange={onChange}
+                value={formState.phone_number}
+              />
+            </label>
+            <br />
+            <p data-cy="phone-err">{errorState.phone_number}</p>
+            <label htmlFor="password">
+              Password: <br />
+              <input
+                type="password"
+                name="password"
+                data-cy="password"
+                id="password"
+                placeholder="Create a password"
+                value={formState.password}
+                onChange={onChange}
+              />
+            </label>
+            <p data-cy="password-err">{errorState.password}</p>
+
+            <input
+              type="submit"
+              value="Click to submit"
+              disabled={buttonDisabled}
+            />
+          </form>
+        </StyledForm>
+        <StyledImg src={plantImg} alt="plant" />
       </StyledDiv>
     </div>
   );
