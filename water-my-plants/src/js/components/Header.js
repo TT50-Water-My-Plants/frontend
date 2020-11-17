@@ -12,6 +12,8 @@ const StyledDiv = styled.div`
 
 const StyledText = styled.span`
   color: white;
+  text-shadow: 2px 2px black;
+  font-size: 1.5rem;
 `;
 
 export default function Header() {
