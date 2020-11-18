@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import plant from "../../images/plant.jpg";
+import { useHistory } from "react-router-dom";
 
 const StyledDiv = styled.div`
   height: 90vh;
@@ -22,7 +23,7 @@ const AboutDiv = styled.div`
 
 const InnerDiv = styled.div`
   background-color: white;
-  width: 30%;
+  width: 50%;
   color: #006a4e;
   border: 3px solid black;
   border-radius: 5%;
@@ -38,6 +39,10 @@ const ImgDiv = styled.div`
 `;
 
 export default function Home(props) {
+  const history = useHistory();
+  function handleClick() {
+    history.push("/register");
+  }
   return (
     <div>
       <StyledDiv>
@@ -61,6 +66,14 @@ export default function Home(props) {
           <InnerDiv>
             <h2>Record</h2>
             <p>Quickly record watering so you can get back to other tasks.</p>
+          </InnerDiv>
+          <InnerDiv>
+            <h2>Register today!</h2>
+            <button type="button" onClick={handleClick}>
+              Register
+            </button>
+            <br />
+            <br />
           </InnerDiv>
         </AboutDiv>
         <ImgDiv>

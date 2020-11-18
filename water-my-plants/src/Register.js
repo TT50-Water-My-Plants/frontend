@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import plantImg from "../src/images/pic01.jpg";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import formSchema from "./formSchema";
 import axios from "axios";
 import * as yup from "yup";
@@ -19,6 +19,7 @@ const StyledForm = styled.div`
   color: white;
   text-shadow: 2px 2px black;
   background-color: #006a4e;
+  border-radius: 5%;
   width: 40%;
   height: 50vh;
   display: flex;
@@ -37,17 +38,17 @@ const StyledImg = styled.img`
 
 export default function Register(props) {
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const history = useHistory()
+  const history = useHistory();
   const intiailFormValues = {
     username: "",
     phone_number: "",
-    password: "",
+    password: ""
   };
 
   const defaultErrors = {
     username: "",
     phone_number: "",
-    password: "",
+    password: ""
   };
 
   const [formState, setFormState] = useState(intiailFormValues);
@@ -95,7 +96,7 @@ export default function Register(props) {
           phone_number: "",
           password: ""
         });
-        history.push("/login")
+        history.push("/login");
       })
       .catch(err => {
         console.log(err);
@@ -120,7 +121,7 @@ export default function Register(props) {
               />
             </label>
             <br />
-            <p data-cy="username-err">{errorState.username}</p>
+            <p>{errorState.username}</p>
 
             <label htmlFor="phone_number">
               Phone number:
@@ -136,7 +137,7 @@ export default function Register(props) {
               />
             </label>
             <br />
-            <p data-cy="phone-err">{errorState.phone_number}</p>
+            <p>{errorState.phone_number}</p>
             <label htmlFor="password">
               Password: <br />
               <input
@@ -149,7 +150,7 @@ export default function Register(props) {
                 onChange={onChange}
               />
             </label>
-            <p data-cy="password-err">{errorState.password}</p>
+            <p>{errorState.password}</p>
 
             <input
               type="submit"
