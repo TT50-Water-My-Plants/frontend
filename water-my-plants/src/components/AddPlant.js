@@ -27,6 +27,13 @@ const StyledForm = styled.div`
   font-size: 1.4rem;
 `;
 
+const StyledButton = styled.button`
+  background-color: white;
+  color: #006a4e;
+  padding: 3px;
+  border-radius: 2%;
+`;
+
 function AddPlant({ user, plants, addPlant, setUserPlants }) {
   const [form, setForm] = useState({
     nickname: "",
@@ -98,7 +105,7 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
               );
             })}
           </select>
-          <button onClick={selectPlantSubmit}>Add Plant</button>
+          <StyledButton onClick={selectPlantSubmit}>Add Plant</StyledButton>
         </div>
         <p>{statusMsg}</p>
         <div>
@@ -141,7 +148,7 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
           </label>
         </div>
         <br />
-        <button>Add Plant</button>
+        <StyledButton onClick={selectPlantSubmit}>Add Plant</StyledButton>
       </StyledForm>
     </StyledDiv>
   );
