@@ -57,24 +57,24 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
     const id = localStorage.getItem("user_id");
     axiosWithAuth()
       .get(`/api/account/${id}`)
-      .then(res => {
+      .then((res) => {
         setUser(res.data.user);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
 
     axiosWithAuth()
       .get(`/api/plants/users/${id}`)
-      .then(res => {
+      .then((res) => {
         setUserPlants(res.data);
       });
     axiosWithAuth()
       .get(`/api/plants`)
-      .then(res => {
+      .then((res) => {
         setPlants(res.data);
       });
-  }, []);
+  }, [setPlants, setUser, setUserPlants, user]);
 
   return (
     <Div>
@@ -94,8 +94,8 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
         <StyledParaTag>Your Plants:</StyledParaTag>
       </div>
 
-      <StyledDiv className="plants">
-        {userPlants.map(item => {
+      <StyledDiv className='plants'>
+        {userPlants.map((item) => {
           return (
             <StyledPlantDiv key={item.nickname}>
               <p>
