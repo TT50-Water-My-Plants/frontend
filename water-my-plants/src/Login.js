@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-
 import loginFormSchema from "./js/utils/loginFormSchema";
-
 import axios from "axios"
 import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
@@ -66,7 +64,7 @@ function Login({setLoggedStatus, setUser}) {
         localStorage.setItem("user_id", res.data.user_id)
         setLoggedStatus(true)
       })
-      .then(response => {
+      .then(() => {
         history.push("/dashboard")
       })
   };

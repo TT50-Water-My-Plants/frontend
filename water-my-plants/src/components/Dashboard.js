@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { axiosWithAuth } from "../auth/axiosWithAuth"
 
 function Dashboard({user, userPlants, setUser, setUserPlants, setPlants}) {
-  console.log(user)
   useEffect(() => {
     const id = localStorage.getItem("user_id")
     axiosWithAuth()
@@ -24,7 +23,7 @@ function Dashboard({user, userPlants, setUser, setUserPlants, setPlants}) {
       .then(res => {
         setPlants(res.data)
       })
-  }, [])
+  }, [setPlants, setUser, setUserPlants])
 
   return (
     <div>
@@ -39,7 +38,7 @@ function Dashboard({user, userPlants, setUser, setUserPlants, setPlants}) {
       <div className="plants">
         {userPlants.map(item => {
           return (
-          <div key={item.nickname}>
+          <div key={item.id}>
             <p>Nickname: {item.nickname} Species: {item.species} Frequency: {item.h2o_frequency}</p>
           </div>
           )
