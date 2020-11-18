@@ -27,6 +27,7 @@ const StyledPlantDiv = styled.div`
   width: 30%;
   height: 30%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
@@ -37,6 +38,17 @@ const StyledPlantDiv = styled.div`
 
 const StyledParaTag = styled.p`
   font-size: 1.5rem;
+`;
+
+const StyledButtonDiv = styled.div`
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+`;
+
+const StyledButton = styled.button`
+  background-color: #006a4e;
+  color: white;
 `;
 
 function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
@@ -90,6 +102,10 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
                 Nickname: {item.nickname} <br /> Species: {item.species} <br />
                 Frequency: {item.h2o_frequency}
               </p>
+              <StyledButtonDiv>
+                <StyledButton>Edit</StyledButton>
+                <StyledButton>Delete</StyledButton>
+              </StyledButtonDiv>
             </StyledPlantDiv>
           );
         })}
