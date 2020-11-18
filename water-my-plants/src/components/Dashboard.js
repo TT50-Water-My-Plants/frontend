@@ -2,13 +2,25 @@ import React, { useEffect } from "react";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
 
+const Div = styled.div`
+  background-color: #b8d5cd;
+`;
 const StyledDiv = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 80vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   background-color: #b8d5cd;
+`;
+
+const StyledUsername = styled.div`
+  width: 100%;
+  height: 10vh;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
 `;
 
 const StyledPlantDiv = styled.div`
@@ -21,6 +33,10 @@ const StyledPlantDiv = styled.div`
   border-radius: 5%;
   text-align: center;
   margin-top: 3%;
+`;
+
+const StyledParaTag = styled.p`
+  font-size: 1.5rem;
 `;
 
 function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
@@ -49,19 +65,22 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
   }, []);
 
   return (
-    <StyledDiv>
-      {user !== null ? (
-        <StyledPlantDiv>
-          <p>{user.username}</p>
-          <br />
-          <p>{user.phone_number}</p>
-          <br />
-          <p>{user.userId}</p>
-          <br />
-        </StyledPlantDiv>
-      ) : (
-        <p>Loading ...</p>
-      )}
+    <Div>
+      <div>
+        {user !== null ? (
+          <StyledUsername>
+            <StyledParaTag>Welcome back, {user.username}!</StyledParaTag>
+            <br />
+            <p>Phone Number: {user.phone_number}</p>
+            <br />
+            <p>{user.userId}</p>
+            <br />
+          </StyledUsername>
+        ) : (
+          <p>Loading ...</p>
+        )}
+        <StyledParaTag>Your Plants:</StyledParaTag>
+      </div>
 
       <StyledDiv className="plants">
         {userPlants.map(item => {
@@ -75,7 +94,7 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
           );
         })}
       </StyledDiv>
-    </StyledDiv>
+    </Div>
   );
 }
 
