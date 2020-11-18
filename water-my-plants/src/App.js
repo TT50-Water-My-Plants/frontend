@@ -4,12 +4,10 @@ import Home from "../src/js/components/Home";
 import Header from "../src/js/components/Header";
 import Register from "./Register";
 import Login from "./Login";
-import PrivateRoute from "./auth/PrivateRoute"
-import DashboardContainer from "./containers/DashboardContainer"
-import AddPlantContainer from "./containers/AddPlantContainer"
-import ViewPlantContainer from "./containers/ViewPlantContainer"
-import EditPlantContainer from "./containers/EditPlantContainer"
-import UpdateUserContainer from "./containers/UpdateUserContainer"
+import PrivateRoute from "./auth/PrivateRoute";
+import DashboardContainer from "./containers/DashboardContainer";
+import AddPlantContainer from "./containers/AddPlantContainer";
+import UpdateUserContainer from "./containers/UpdateUserContainer";
 import About from "./js/components/About";
 
 function App() {
@@ -24,11 +22,9 @@ function App() {
         <PrivateRoute path="/dashboard" component={DashboardContainer} />
         <PrivateRoute path="/add-plant" component={AddPlantContainer} />
         <PrivateRoute path="/account" component={UpdateUserContainer} />
-        <PrivateRoute path="/update-plant/:id" component={EditPlantContainer} />
-        <PrivateRoute path="/edit-plant/:id" component={ViewPlantContainer} />
       </Switch>
     </div>
   );
 }
 
-export default App
+export default App;
