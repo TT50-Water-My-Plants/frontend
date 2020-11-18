@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { axiosWithAuth } from "../auth/axiosWithAuth";
+import { axiosWithAuth } from "../auth/axiosWithAuth"
 import styled from "styled-components";
 
 const Div = styled.div`
@@ -52,7 +52,6 @@ const StyledButton = styled.button`
 `;
 
 function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
-  console.log(user);
   useEffect(() => {
     const id = localStorage.getItem("user_id");
     axiosWithAuth()
@@ -71,10 +70,20 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
       });
     axiosWithAuth()
       .get(`/api/plants`)
-      .then((res) => {
-        setPlants(res.data);
-      });
-  }, [setPlants, setUser, setUserPlants, user]);
+      .then(res => {
+        setPlants(res.data)
+      })
+  }, [setPlants, setUser, setUserPlants])
+
+  function deletePlant(userId) {
+    axiosWithAuth()
+      .delete(`/api/plants/${userId}`)
+      .then(() => {
+        setUserPlants(userPlants.filter(plant => {
+          return plant.plant_id !== parseInt(userId, 10)
+        }))
+      })
+  }
 
   return (
     <Div>
@@ -97,14 +106,14 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
       <StyledDiv className='plants'>
         {userPlants.map((item) => {
           return (
-            <StyledPlantDiv key={item.nickname}>
+            <StyledPlantDiv key={item.id}>
               <p>
                 Nickname: {item.nickname} <br /> Species: {item.species} <br />
                 Frequency: {item.h2o_frequency}
               </p>
               <StyledButtonDiv>
                 <StyledButton>Edit</StyledButton>
-                <StyledButton>Delete</StyledButton>
+                <StyledButton onClick={e => deletePlant(item.plant_id)}>Delete</StyledButton>
               </StyledButtonDiv>
             </StyledPlantDiv>
           );

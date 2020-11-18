@@ -2,7 +2,7 @@ import { SET_LOGGED_STATUS, SET_USER, SET_PLANTS, SET_USER_PLANTS, ADD_PLANT, ED
 
 const initialState = {
   user: null,
-  isLoggedIn: false,
+  isLoggedIn: localStorage.getItem("token") ? true : false,
   plants: [],
   userPlants: [],
   isFetching: false,

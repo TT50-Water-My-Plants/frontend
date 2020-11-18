@@ -28,11 +28,13 @@ const StyledButton = styled.button`
 
 function Header({ isLoggedIn, setLoggedStatus }) {
   const history = useHistory();
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     setLoggedStatus(false);
     history.push("/login");
   };
+  
   return (
     <div>
       {isLoggedIn ? (
@@ -43,8 +45,8 @@ function Header({ isLoggedIn, setLoggedStatus }) {
           <Link to="/add-plant">
             <StyledText>Add Plant</StyledText>
           </Link>
-          <Link to="/Edit Account">
-            <StyledText>Edit Account</StyledText>
+          <Link to="/account">
+            <StyledText>Account</StyledText>
           </Link>
           <StyledButton onClick={handleLogout}>Logout</StyledButton>
         </StyledDiv>

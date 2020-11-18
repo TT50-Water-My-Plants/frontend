@@ -21,7 +21,7 @@ const StyledForm = styled.div`
   background-color: #006a4e;
   border-radius: 5%;
   width: 40%;
-  height: 50vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,7 +90,7 @@ export default function Register(props) {
         "https://water-my-plants-tt50.herokuapp.com/api/auth/register",
         formState
       )
-      .then(res => {
+      .then(() => {
         setFormState({
           username: "",
           phone_number: "",
