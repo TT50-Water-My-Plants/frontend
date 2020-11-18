@@ -33,11 +33,12 @@ function Login({setLoggedStatus, setUser}) {
   const [disabled, setDisabled] = useState(initialDisabled);
   const [loginFormValues, setloginFormValues] = useState(loginValues);
   const [loginFormErrors, setloginFormErrors] = useState(loginError);
+  const [loginErr, setLoginErr] = useState("")
 
   const onChange = event => {
     const name = event.target.name;
     const value = event.target.value;
-
+    setLoginErr("")
     yup
       .reach(loginFormSchema, name)
       .validate(value)
@@ -61,6 +62,7 @@ function Login({setLoggedStatus, setUser}) {
 
   const onSubmit = event => {
     event.preventDefault();
+    setLoginErr("")
     axios
       .post("https://water-my-plants-tt50.herokuapp.com/api/auth/login", loginFormValues)
       .then(res => {
@@ -70,6 +72,9 @@ function Login({setLoggedStatus, setUser}) {
       })
       .then(() => {
         history.push("/dashboard")
+      })
+      .catch(() => {
+        setLoginErr("Invalid Username and Password Combination")
       })
   };
 
@@ -115,6 +120,9 @@ function Login({setLoggedStatus, setUser}) {
             <button id="submit" className="disabled" disabled={disabled}>
               Submit
             </button>
+          </div>
+          <div className="error" style={{ color: "red" }}>
+            {loginErr}
           </div>
 
           <Link to="/register">
