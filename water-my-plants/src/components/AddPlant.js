@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
+import schema from "./addPlantValidation";
+import * as yup from "yup";
 
 const StyledDiv = styled.div`
   width: 100%;
@@ -18,7 +20,7 @@ const StyledForm = styled.div`
   background-color: #006a4e;
   border-radius: 5%;
   width: 60%;
-  height: 50vh;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,6 +36,9 @@ const StyledButton = styled.button`
   border-radius: 2%;
 `;
 
+const StyledParaTag = styled.p`
+  font-size: 0.75rem;
+`;
 function AddPlant({ user, plants, addPlant, setUserPlants }) {
   const [form, setForm] = useState({
     nickname: "",
@@ -42,10 +47,30 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
   });
 
   const [selectValue, setSelectValue] = useState("--Plants--");
-
+  const intialErrors = {
+    nickname: "",
+    species: "",
+    h2o_frequency: ""
+  };
+  const [errorState, setErrorState] = useState(intialErrors);
   const [statusMsg, setStatusMsg] = useState("");
 
+  const validate = event => {
+    yup
+      .reach(schema, event.target.name)
+      .validate(event.target.value)
+      .then(valid => {
+        setErrorState({ ...errorState, [event.target.name]: "" });
+      })
+      .catch(err => {
+        console.log(err);
+        setErrorState({ ...errorState, [event.target.name]: err.errors[0] });
+      });
+  };
+
   const handleChange = e => {
+    e.persist();
+    validate(e);
     setStatusMsg("");
     const { name, value } = e.target;
     setForm({
@@ -120,6 +145,9 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
               onChange={handleChange}
             />
           </label>
+          <StyledParaTag data-cy="nickname-err">
+            {errorState.nickname}
+          </StyledParaTag>
         </div>
         <div>
           <label htmlFor="species">
@@ -133,6 +161,9 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
               onChange={handleChange}
             />
           </label>
+          <StyledParaTag data-cy="species-err">
+            {errorState.species}
+          </StyledParaTag>
         </div>
         <div>
           <label htmlFor="h2o_frequency">
@@ -146,6 +177,9 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
               onChange={handleChange}
             />
           </label>
+          <StyledParaTag data-cy="h2o-err">
+            {errorState.h2o_frequency}
+          </StyledParaTag>
         </div>
         <br />
         <StyledButton onClick={selectPlantSubmit}>Add Plant</StyledButton>
