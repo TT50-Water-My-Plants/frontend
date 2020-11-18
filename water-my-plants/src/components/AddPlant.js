@@ -135,10 +135,10 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
             })}
           </select>
           <StyledButton>Add Plant</StyledButton>
+          <p>{statusMsg}</p>
         </div>
       </StyledForm>
       <StyledForm onSubmit={onSubmit}>
-        <p>{statusMsg}</p>
         <div>
           <label htmlFor="nickname">
             Nickname:
