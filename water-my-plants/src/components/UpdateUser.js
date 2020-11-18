@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 // import * as yup from "yup";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
 
-function UpdateAccount(props) {
+function UpdateUser({ user, setLoggedStatus}) {
   // const { user, setUser } = useContext(UserContext);
   const name = localStorage.getItem("username");
   const id = Number(localStorage.getItem("id"));
@@ -12,7 +12,7 @@ function UpdateAccount(props) {
 
   const [updatedUser, setUpdatedUser] = useState({
     password: "",
-    phone_number: "",
+    phone_number: user.phone_number,
   });
 
   const [err, setErr] = useState("");
@@ -207,4 +207,4 @@ const Container = styled.div`
   }
 `;
 
-export default UpdateAccount;
+export default UpdateUser

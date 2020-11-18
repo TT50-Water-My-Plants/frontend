@@ -14,13 +14,14 @@ const StyledDiv = styled.div`
   align-items: center;
 `;
 
-const StyledForm = styled.div`
+const StyledForm = styled.form`
   color: white;
   text-shadow: 2px 2px black;
   background-color: #006a4e;
   border-radius: 5%;
   width: 60%;
-  height: 70vh;
+  padding: 2.5%;
+  margin: 1%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,8 +85,8 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
     setSelectValue(value);
   };
 
-  const selectPlantSubmit = () => {
-    console.log(parseInt(selectValue, 10), parseInt(user.id, 10));
+  const selectPlantSubmit = (e) => {
+    e.preventDefault()
     axiosWithAuth()
       .post(`api/plants/${selectValue}/users`, {
         plant_id: parseInt(selectValue, 10),
@@ -94,13 +95,16 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
       .then(res => {
         setUserPlants(res.data);
         setStatusMsg("Plant added!");
-      });
+      })
+      .catch(err => {
+        console.log(err)
+      })
   };
 
   const onSubmit = e => {
     e.preventDefault();
     axiosWithAuth()
-      .post(`/api/plants/users/${user.userId}`, form)
+      .post(`/api/plants`, form)
       .then(res => {
         addPlant(res.data);
         setForm({
@@ -108,7 +112,7 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
           species: "",
           h2o_frequency: ""
         });
-        setStatusMsg("New Plant Has Been Successfully Added!");
+        setStatusMsg("New Plant Has Been Added To The Dropdown List!");
       })
       .catch(err => {
         setStatusMsg(
@@ -118,7 +122,7 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
   };
   return (
     <StyledDiv>
-      <StyledForm onSubmit={onSubmit}>
+      <StyledForm onSubmit={selectPlantSubmit}>
         <div>
           <select value={selectValue} onChange={selectChange}>
             Plants
@@ -130,8 +134,10 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
               );
             })}
           </select>
-          <StyledButton onClick={selectPlantSubmit}>Add Plant</StyledButton>
+          <StyledButton>Add Plant</StyledButton>
         </div>
+      </StyledForm>
+      <StyledForm onSubmit={onSubmit}>
         <p>{statusMsg}</p>
         <div>
           <label htmlFor="nickname">
@@ -182,7 +188,7 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
           </StyledParaTag>
         </div>
         <br />
-        <StyledButton onClick={selectPlantSubmit}>Add Plant</StyledButton>
+        <StyledButton>Add Plant</StyledButton>
       </StyledForm>
     </StyledDiv>
   );

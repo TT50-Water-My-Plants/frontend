@@ -21,7 +21,7 @@ const StyledForm = styled.div`
   background-color: #006a4e;
   border-radius: 5%;
   width: 40%;
-  height: 50vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;

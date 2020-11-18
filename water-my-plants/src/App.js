@@ -9,6 +9,7 @@ import DashboardContainer from "./containers/DashboardContainer"
 import AddPlantContainer from "./containers/AddPlantContainer"
 import ViewPlantContainer from "./containers/ViewPlantContainer"
 import EditPlantContainer from "./containers/EditPlantContainer"
+import UpdateUserContainer from "./containers/UpdateUserContainer"
 import About from "./js/components/About";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <PrivateRoute path="/dashboard" component={DashboardContainer} />
         <PrivateRoute path="/add-plant" component={AddPlantContainer} />
+        <PrivateRoute path="/account" component={UpdateUserContainer} />
         <PrivateRoute path="/update-plant/:id" component={EditPlantContainer} />
         <PrivateRoute path="/edit-plant/:id" component={ViewPlantContainer} />
       </Switch>
