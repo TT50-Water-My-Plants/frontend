@@ -71,15 +71,9 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
     axiosWithAuth()
       .get(`/api/plants`)
       .then(res => {
-<<<<<<< HEAD
         setPlants(res.data)
       })
   }, [setPlants, setUser, setUserPlants])
-=======
-        setPlants(res.data);
-      });
-  }, []);
->>>>>>> febaae5986af83df6003409f207aadeccec02e43
 
   return (
     <Div>
@@ -102,12 +96,6 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
       <StyledDiv className="plants">
         {userPlants.map(item => {
           return (
-<<<<<<< HEAD
-          <div key={item.id}>
-            <p>Nickname: {item.nickname} Species: {item.species} Frequency: {item.h2o_frequency}</p>
-          </div>
-          )
-=======
             <StyledPlantDiv key={item.nickname}>
               <p>
                 Nickname: {item.nickname} <br /> Species: {item.species} <br />
@@ -119,7 +107,6 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
               </StyledButtonDiv>
             </StyledPlantDiv>
           );
->>>>>>> febaae5986af83df6003409f207aadeccec02e43
         })}
       </StyledDiv>
     </Div>
