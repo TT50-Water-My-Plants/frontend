@@ -1,5 +1,6 @@
 import * as yup from "yup";
 
+const numbers = /(?=.*[0-9])/;
 const formSchema = yup.object().shape({
   username: yup
     .string()
@@ -7,6 +8,7 @@ const formSchema = yup.object().shape({
     .required("username is required"),
   phone_number: yup
     .string()
+    .matches(numbers, "must be a valid phone number")
     .max(10)
     .required("phone number is required"),
   password: yup
