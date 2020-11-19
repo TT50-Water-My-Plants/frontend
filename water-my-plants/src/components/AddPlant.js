@@ -61,8 +61,8 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
   const intialErrors = {
     nickname: "",
     species: "",
-    h2o_frequency_day: "0",
-    h2o_frequency_hour: "0"
+    h2o_frequency_day: "",
+    h2o_frequency_hour: ""
   };
   const [errorState, setErrorState] = useState(intialErrors);
   const [statusMsg, setStatusMsg] = useState("");
