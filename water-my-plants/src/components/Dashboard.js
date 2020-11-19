@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { axiosWithAuth } from "../auth/axiosWithAuth"
+import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
 
 const Div = styled.div`
@@ -24,7 +24,7 @@ const StyledUsername = styled.div`
 `;
 
 const StyledPlantDiv = styled.div`
-  width: 30%;
+  width: 20%;
   height: 30%;
   display: flex;
   flex-direction: column;
@@ -33,17 +33,11 @@ const StyledPlantDiv = styled.div`
   background-color: white;
   border-radius: 5%;
   text-align: center;
-  margin-top: 3%;
+  margin: 1%;
 `;
 
 const StyledParaTag = styled.p`
   font-size: 1.5rem;
-`;
-
-const StyledButtonDiv = styled.div`
-  display: flex;
-  width: 40%;
-  justify-content: space-between;
 `;
 
 const StyledButton = styled.button`
@@ -56,24 +50,24 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
     const id = localStorage.getItem("user_id");
     axiosWithAuth()
       .get(`/api/account/${id}`)
-      .then((res) => {
+      .then(res => {
         setUser(res.data.user);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
 
     axiosWithAuth()
       .get(`/api/plants/users/${id}`)
-      .then((res) => {
+      .then(res => {
         setUserPlants(res.data);
       });
     axiosWithAuth()
       .get(`/api/plants`)
       .then(res => {
-        setPlants(res.data)
-      })
-  }, [setPlants, setUser, setUserPlants])
+        setPlants(res.data);
+      });
+  }, [setPlants, setUser, setUserPlants]);
 
   function deletePlant(userId) {
     console.log(userId)
@@ -104,18 +98,17 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
         <StyledParaTag>Your Plants:</StyledParaTag>
       </div>
 
-      <StyledDiv className='plants'>
-        {userPlants.map((item) => {
+      <StyledDiv className="plants">
+        {userPlants.map(item => {
           return (
             <StyledPlantDiv key={item.id}>
               <p>
                 Nickname: {item.nickname} <br /> Species: {item.species} <br />
                 Frequency: {item.h2o_frequency}
               </p>
-              <StyledButtonDiv>
-                <StyledButton>Edit</StyledButton>
-                <StyledButton onClick={e => deletePlant(item.id)}>Delete</StyledButton>
-              </StyledButtonDiv>
+              <StyledButton onClick={e => deletePlant(item.id)}>
+                Delete
+              </StyledButton>
             </StyledPlantDiv>
           );
         })}

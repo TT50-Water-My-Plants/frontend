@@ -14,12 +14,21 @@ const StyledDiv = styled.div`
   align-items: center;
 `;
 
+const StyledDropdownForm = styled.form`
+  width: 30%;
+  height: 10vh;
+  background-color: #b8d5cd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const StyledForm = styled.form`
   color: white;
   text-shadow: 2px 2px black;
   background-color: #006a4e;
   border-radius: 5%;
-  width: 60%;
+  width: 40%;
   padding: 2.5%;
   margin: 1%;
   display: flex;
@@ -85,8 +94,8 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
     setSelectValue(value);
   };
 
-  const selectPlantSubmit = (e) => {
-    e.preventDefault()
+  const selectPlantSubmit = e => {
+    e.preventDefault();
     axiosWithAuth()
       .post(`api/plants/${selectValue}/users`, {
         plant_id: parseInt(selectValue, 10),
@@ -97,8 +106,8 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
         setStatusMsg("Plant added!");
       })
       .catch(err => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   };
 
   const onSubmit = e => {
@@ -122,7 +131,7 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
   };
   return (
     <StyledDiv>
-      <StyledForm onSubmit={selectPlantSubmit}>
+      <StyledDropdownForm onSubmit={selectPlantSubmit}>
         <div>
           <select value={selectValue} onChange={selectChange}>
             Plants
@@ -137,7 +146,7 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
           <StyledButton>Add Plant</StyledButton>
           <p>{statusMsg}</p>
         </div>
-      </StyledForm>
+      </StyledDropdownForm>
       <StyledForm onSubmit={onSubmit}>
         <div>
           <label htmlFor="nickname">
