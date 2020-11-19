@@ -53,16 +53,16 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
   const [form, setForm] = useState({
     nickname: "",
     species: "",
-    h2o_frequency_day: "",
-    h2o_frequency_hour: ""
+    h2o_frequency_day: "0",
+    h2o_frequency_hour: "0"
   });
 
   const [selectValue, setSelectValue] = useState("--Plants--");
   const intialErrors = {
     nickname: "",
     species: "",
-    h2o_frequency_day: "",
-    h2o_frequency_hour: ""
+    h2o_frequency_day: "0",
+    h2o_frequency_hour: "0"
   };
   const [errorState, setErrorState] = useState(intialErrors);
   const [statusMsg, setStatusMsg] = useState("");
