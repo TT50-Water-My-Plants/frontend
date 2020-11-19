@@ -70,15 +70,14 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
   }, [setPlants, setUser, setUserPlants]);
 
   function deletePlant(userId) {
+    console.log(userId)
     axiosWithAuth()
       .delete(`/api/plants/${userId}`)
       .then(() => {
-        setUserPlants(
-          userPlants.filter(plant => {
-            return plant.plant_id !== parseInt(userId, 10);
-          })
-        );
-      });
+        setUserPlants(userPlants.filter(plant => {
+          return plant.id !== parseInt(userId, 10)
+        }))
+      })
   }
 
   return (
@@ -107,7 +106,7 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
                 Nickname: {item.nickname} <br /> Species: {item.species} <br />
                 Frequency: {item.h2o_frequency}
               </p>
-              <StyledButton onClick={e => deletePlant(item.plant_id)}>
+              <StyledButton onClick={e => deletePlant(item.id)}>
                 Delete
               </StyledButton>
             </StyledPlantDiv>
