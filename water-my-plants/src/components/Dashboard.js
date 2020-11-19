@@ -76,11 +76,12 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
   }, [setPlants, setUser, setUserPlants])
 
   function deletePlant(userId) {
+    console.log(userId)
     axiosWithAuth()
       .delete(`/api/plants/${userId}`)
       .then(() => {
         setUserPlants(userPlants.filter(plant => {
-          return plant.plant_id !== parseInt(userId, 10)
+          return plant.id !== parseInt(userId, 10)
         }))
       })
   }
@@ -113,7 +114,7 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
               </p>
               <StyledButtonDiv>
                 <StyledButton>Edit</StyledButton>
-                <StyledButton onClick={e => deletePlant(item.plant_id)}>Delete</StyledButton>
+                <StyledButton onClick={e => deletePlant(item.id)}>Delete</StyledButton>
               </StyledButtonDiv>
             </StyledPlantDiv>
           );

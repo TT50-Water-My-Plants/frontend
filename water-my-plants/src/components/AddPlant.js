@@ -81,7 +81,7 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
   };
 
   const selectChange = e => {
-    const { value, id } = e.target;
+    const { value } = e.target;
     setSelectValue(value);
   };
 

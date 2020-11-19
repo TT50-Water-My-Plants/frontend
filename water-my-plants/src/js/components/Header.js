@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { setLoggedStatus } from "../../actions";
 
 const StyledDiv = styled.div`
-  background: url("https://images.unsplash.com/photo-1525923838299-2312b60f6d69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=564&q=80");
+  background-image: url("https://images.unsplash.com/photo-1525923838299-2312b60f6d69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=564&q=80");
   height: 10vh;
   display: flex;
   justify-content: space-around;
