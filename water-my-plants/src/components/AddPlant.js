@@ -53,14 +53,16 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
   const [form, setForm] = useState({
     nickname: "",
     species: "",
-    h2o_frequency: ""
+    h2o_frequency_day: "",
+    h2o_frequency_hour: ""
   });
 
   const [selectValue, setSelectValue] = useState("--Plants--");
   const intialErrors = {
     nickname: "",
     species: "",
-    h2o_frequency: ""
+    h2o_frequency_day: "",
+    h2o_frequency_hour: ""
   };
   const [errorState, setErrorState] = useState(intialErrors);
   const [statusMsg, setStatusMsg] = useState("");
@@ -112,8 +114,14 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
 
   const onSubmit = e => {
     e.preventDefault();
+    const finalForm = {
+      nickname: form.nickname,
+      species: form.species,
+      h2o_frequency: form.h2o_frequency_day === "0" ? `${form.h2o_frequency_hour} hours` : `${form.h2o_frequency_day} days ${form.h2o_frequency_hour} hours`
+    }
+    console.log(finalForm)
     axiosWithAuth()
-      .post(`/api/plants`, form)
+      .post(`/api/plants`, finalForm)
       .then(res => {
         addPlant(res.data);
         setForm({
@@ -181,19 +189,137 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
           </StyledParaTag>
         </div>
         <div>
-          <label htmlFor="h2o_frequency">
-            H20 Frequency:
-            <br />
-            <input
-              type="text"
-              name="h2o_frequency"
-              id="h2o_frequency"
-              value={form.h2o_frequency}
-              onChange={handleChange}
-            />
-          </label>
+          <div>
+            <label>H20 Frequency:</label>
+          </div>
+          <select name="h2o_frequency_day" id="h2o_frequency_day" value={form.h2o_frequency_day} onChange={handleChange}>
+            <option value="0">
+              0 Days
+            </option>
+            <option value="1">
+              1 Day
+            </option>
+            <option value="2">
+              2 Days
+            </option>
+            <option value="3">
+              3 Days
+            </option>
+            <option value="4">
+              4 Days
+            </option>
+            <option value="5">
+              5 Days
+            </option>
+            <option value="6">
+              6 Days
+            </option>
+            <option value="7">
+              7 Days
+            </option>
+            <option value="8">
+              8 Days
+            </option>
+            <option value="9">
+              9 Days
+            </option>
+            <option value="10">
+              10 Days
+            </option>
+            <option value="11">
+              11 Days
+            </option>
+            <option value="12">
+              12 Days
+            </option>
+            <option value="13">
+              13 Days
+            </option>
+            <option value="14">
+              14 Days
+            </option>
+
+          </select>
+          <select name="h2o_frequency_hour" id="h2o_frequency_hour" value={form.h2o_frequency_hour} onChange={handleChange}>
+            <option value="0">
+              0 Hours
+            </option>
+            <option value="1">
+              1 Hours
+            </option>
+            <option value="2">
+              2 Hours
+            </option>
+            <option value="3">
+              3 Hours
+            </option>
+            <option value="4">
+              4 Hours
+            </option>
+            <option value="5">
+              5 Hours
+            </option>
+            <option value="6">
+              6 Hours
+            </option>
+            <option value="7">
+              7 Hours
+            </option>
+            <option value="8">
+              8 Hours
+            </option>
+            <option value="9">
+              9 Hours
+            </option>
+            <option value="10">
+              10 Hours
+            </option>
+            <option value="11">
+              11 Hours
+            </option>
+            <option value="12">
+              12 Hours
+            </option>
+            <option value="13">
+              13 Hours
+            </option>
+            <option value="14">
+              14 Hours
+            </option>
+            <option value="15">
+              15 Hours
+            </option>
+            <option value="16">
+              16 Hours
+            </option>
+            <option value="17">
+              17 Hours
+            </option>
+            <option value="18">
+              18 Hours
+            </option>
+            <option value="19">
+              19 Hours
+            </option>
+            <option value="20">
+              20 Hours
+            </option>
+            <option value="21">
+              21 Hours
+            </option>
+            <option value="22">
+              22 Hours
+            </option>
+            <option value="23">
+              23 Hours
+            </option>
+            <option value="24">
+              24 Hours
+            </option>
+          </select>
           <StyledParaTag data-cy="h2o-err">
-            {errorState.h2o_frequency}
+            {errorState.h2o_frequency_day}
+            {errorState.h2o_frequency_hour}
           </StyledParaTag>
         </div>
         <br />

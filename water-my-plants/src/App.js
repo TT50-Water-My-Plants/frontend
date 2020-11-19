@@ -4,17 +4,10 @@ import Home from "../src/js/components/Home";
 import Header from "../src/js/components/Header";
 import Register from "./Register";
 import Login from "./Login";
-<<<<<<< HEAD
-import PrivateRoute from "./auth/PrivateRoute"
-import DashboardContainer from "./containers/DashboardContainer"
-import AddPlantContainer from "./containers/AddPlantContainer"
-import UpdateUserContainer from "./containers/UpdateUserContainer"
-=======
 import PrivateRoute from "./auth/PrivateRoute";
 import DashboardContainer from "./containers/DashboardContainer";
 import AddPlantContainer from "./containers/AddPlantContainer";
 import UpdateUserContainer from "./containers/UpdateUserContainer";
->>>>>>> 8b317ed389aba8b9ac500cb807692258f9b73c0f
 import About from "./js/components/About";
 
 function App() {

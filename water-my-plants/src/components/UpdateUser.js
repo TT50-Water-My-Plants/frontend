@@ -1,53 +1,67 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
-// import * as yup from "yup";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
 
-function UpdateUser({ user, setLoggedStatus}) {
+
+function UpdateUser({ user, setUser, setLoggedStatus}) {
   // const { user, setUser } = useContext(UserContext);
-  const name = localStorage.getItem("username");
-  const id = Number(localStorage.getItem("id"));
-  let history = useHistory();
 
   const [updatedUser, setUpdatedUser] = useState({
     password: "",
     phone_number: user.phone_number,
-  });
+  })
 
-  const [err, setErr] = useState("");
+  const [errMessage, setErrMessage] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+
 
   const handleChange = (e) => {
+    setErrMessage("")
+    setSuccessMessage("")
     setUpdatedUser({
       ...updatedUser,
       [e.target.name]: e.target.value,
     });
   };
 
-  const updateAccount = (user) => {
-    if (user.phone_number === "" || user.password === "") {
-      setErr("Please fill out both of the fields.");
-      return;
-    } else if (
-      user.phone_number.length !== 10 ||
-      user.phone_number.match(/[^0-9]/gi, "")
-    ) {
-      setErr("Please enter a valid phone number.");
-      return;
-    } else if (user.password.length < 4 || user.password.length >= 32) {
-      setErr("Your password must be between 4 and 32 characters.");
-      return;
+  const updateAccount = (e) => {
+    e.preventDefault()
+    setErrMessage("")
+    setSuccessMessage("")
+    if(updatedUser.phone_number !== user.phone_number && updatedUser.password !== "") {
+      axiosWithAuth()
+        .put(`/api/account/${user.id}`, updatedUser)
+        .then((res) => {
+          setUser(res.data)
+          setSuccessMessage("Infomation Updates")
+        })
+        .catch((err) => {
+          setErrMessage("Failed to update info")
+        });
+    } else if (updatedUser.phone_number === user.phone_number && updatedUser.password !== "") {
+      console.log("correct")
+      axiosWithAuth()
+        .put(`/api/account/${user.id}`, { password: updatedUser.password })
+        .then((res) => {
+          setUser(res.data)
+          setSuccessMessage("Password Updated")
+        })
+        .catch((err) => {
+          setErrMessage("Failed to update password")
+        });
+    } else if (updatedUser.phone_number !== user.phone_number) {
+      axiosWithAuth()
+        .put(`/api/account/${user.id}`, { phone_number: updatedUser.phone_number })
+        .then((res) => {
+          setUser(res.data)
+          setSuccessMessage("Phone Number Updated")
+        })
+        .catch((err) => {
+          setErrMessage("Failed to update phone number")
+        });
+    } else {
+      setErrMessage("You must make changes to update")
     }
-
-    axiosWithAuth()
-      .put(`/users/${id}`, user)
-      .then((res) => {
-        console.log(res);
-        history.push(`/plants`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   return (
@@ -56,17 +70,16 @@ function UpdateUser({ user, setLoggedStatus}) {
         <div className='card-avatar'></div>
 
         <div className='card-info'>
-          <h3>Welcome {name},</h3>
+          <h3>Welcome {user.username},</h3>
           <p>What would you like to update?</p>
         </div>
       </div>
 
       <h4>Update Account:</h4>
+      {errMessage && <div className='error'>{errMessage}</div>}
+      {successMessage && <div className='success'>{successMessage}</div>}
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          updateAccount(updatedUser);
-        }}>
+        onSubmit={updateAccount}>
         <input
           type='text'
           name='phone_number'
@@ -85,7 +98,7 @@ function UpdateUser({ user, setLoggedStatus}) {
         />
         <button type='submit'>Update Account</button>
       </form>
-      {err && <div className='error'>{err}</div>}
+      
     </Container>
   );
 }
@@ -99,7 +112,17 @@ const Container = styled.div`
     text-align: center;
     color: red;
     font-size: 1.4rem;
-    font-weight: 300;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+  }
+
+  .success {
+    margin-top: 2rem;
+    width: 100%;
+    text-align: center;
+    color: green;
+    font-size: 1.4rem;
+    font-weight: bold;
     letter-spacing: 0.1rem;
   }
 
