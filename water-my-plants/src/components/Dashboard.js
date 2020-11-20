@@ -34,10 +34,16 @@ const StyledPlantDiv = styled.div`
   border-radius: 5%;
   text-align: center;
   margin: 1%;
+  @media (max-width: 500px) {
+    width: 40%;
+  }
 `;
 
 const StyledParaTag = styled.p`
   font-size: 1.5rem;
+  @media (max-width: 500px) {
+    font-size: 1rem;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -70,14 +76,16 @@ function Dashboard({ user, userPlants, setUser, setUserPlants, setPlants }) {
   }, [setPlants, setUser, setUserPlants]);
 
   function deletePlant(userId) {
-    console.log(userId)
+    console.log(userId);
     axiosWithAuth()
       .delete(`/api/plants/${userId}`)
       .then(() => {
-        setUserPlants(userPlants.filter(plant => {
-          return plant.id !== parseInt(userId, 10)
-        }))
-      })
+        setUserPlants(
+          userPlants.filter(plant => {
+            return plant.id !== parseInt(userId, 10);
+          })
+        );
+      });
   }
 
   return (

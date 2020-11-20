@@ -2,103 +2,107 @@ import { useState } from "react";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
 
-
-function UpdateUser({ user, setUser, setLoggedStatus}) {
+function UpdateUser({ user, setUser, setLoggedStatus }) {
   // const { user, setUser } = useContext(UserContext);
 
   const [updatedUser, setUpdatedUser] = useState({
     password: "",
-    phone_number: user.phone_number,
-  })
+    phone_number: user.phone_number
+  });
 
-  const [errMessage, setErrMessage] = useState("")
-  const [successMessage, setSuccessMessage] = useState("")
+  const [errMessage, setErrMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-
-  const handleChange = (e) => {
-    setErrMessage("")
-    setSuccessMessage("")
+  const handleChange = e => {
+    setErrMessage("");
+    setSuccessMessage("");
     setUpdatedUser({
       ...updatedUser,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
-  const updateAccount = (e) => {
-    e.preventDefault()
-    setErrMessage("")
-    setSuccessMessage("")
-    if(updatedUser.phone_number !== user.phone_number && updatedUser.password !== "") {
+  const updateAccount = e => {
+    e.preventDefault();
+    setErrMessage("");
+    setSuccessMessage("");
+    if (
+      updatedUser.phone_number !== user.phone_number &&
+      updatedUser.password !== ""
+    ) {
       axiosWithAuth()
         .put(`/api/account/${user.id}`, updatedUser)
-        .then((res) => {
-          setUser(res.data)
-          setSuccessMessage("Infomation Updates")
+        .then(res => {
+          setUser(res.data);
+          setSuccessMessage("Infomation Updates");
         })
-        .catch((err) => {
-          setErrMessage("Failed to update info")
+        .catch(err => {
+          setErrMessage("Failed to update info");
         });
-    } else if (updatedUser.phone_number === user.phone_number && updatedUser.password !== "") {
-      console.log("correct")
+    } else if (
+      updatedUser.phone_number === user.phone_number &&
+      updatedUser.password !== ""
+    ) {
+      console.log("correct");
       axiosWithAuth()
         .put(`/api/account/${user.id}`, { password: updatedUser.password })
-        .then((res) => {
-          setUser(res.data)
-          setSuccessMessage("Password Updated")
+        .then(res => {
+          setUser(res.data);
+          setSuccessMessage("Password Updated");
         })
-        .catch((err) => {
-          setErrMessage("Failed to update password")
+        .catch(err => {
+          setErrMessage("Failed to update password");
         });
     } else if (updatedUser.phone_number !== user.phone_number) {
       axiosWithAuth()
-        .put(`/api/account/${user.id}`, { phone_number: updatedUser.phone_number })
-        .then((res) => {
-          setUser(res.data)
-          setSuccessMessage("Phone Number Updated")
+        .put(`/api/account/${user.id}`, {
+          phone_number: updatedUser.phone_number
         })
-        .catch((err) => {
-          setErrMessage("Failed to update phone number")
+        .then(res => {
+          setUser(res.data);
+          setSuccessMessage("Phone Number Updated");
+        })
+        .catch(err => {
+          setErrMessage("Failed to update phone number");
         });
     } else {
-      setErrMessage("You must make changes to update")
+      setErrMessage("You must make changes to update");
     }
   };
 
   return (
     <Container>
-      <div className='user-card'>
-        <div className='card-avatar'></div>
+      <div className="user-card">
+        <div className="card-avatar"></div>
 
-        <div className='card-info'>
+        <div className="card-info">
           <h3>Welcome {user.username},</h3>
           <p>What would you like to update?</p>
         </div>
       </div>
 
       <h4>Update Account:</h4>
-      {errMessage && <div className='error'>{errMessage}</div>}
-      {successMessage && <div className='success'>{successMessage}</div>}
-      <form
-        onSubmit={updateAccount}>
+      {errMessage && <div className="error">{errMessage}</div>}
+      {successMessage && <div className="success">{successMessage}</div>}
+      <form onSubmit={updateAccount}>
         <input
-          type='text'
-          name='phone_number'
-          placeholder='New Phone Number'
+          type="text"
+          name="phone_number"
+          placeholder="New Phone Number"
           value={updatedUser.phone_number}
           onChange={handleChange}
-          autoComplete='off'
+          autoComplete="off"
         />
         <input
-          type='password'
-          name='password'
-          placeholder='New Password'
+          type="password"
+          name="password"
+          placeholder="New Password"
           value={updatedUser.password}
           onChange={handleChange}
-          autoComplete='off'
+          autoComplete="off"
         />
-        <button type='submit'>Update Account</button>
+        <button type="submit">Update Account</button>
       </form>
-      
     </Container>
   );
 }
@@ -141,6 +145,9 @@ const Container = styled.div`
     color: #444444;
     padding-bottom: 1rem;
     border-bottom: 1px dotted #444444;
+    @media (max-width: 500px) {
+      font-size: 1.2rem;
+    }
   }
 
   .user-card {
@@ -174,11 +181,17 @@ const Container = styled.div`
         font-size: 1.8rem;
         font-weight: 300;
         margin-bottom: 1rem;
+        @media (max-width: 500px) {
+          font-size: 1.2rem;
+        }
       }
 
       p {
         font-size: 1.6rem;
         font-weight: 300;
+        @media (max-width: 500px) {
+          font-size: 1.2rem;
+        }
       }
 
       .strong {
@@ -203,6 +216,10 @@ const Container = styled.div`
       font-size: 1.2rem;
       font-weight: 300;
       letter-spacing: 0.1rem;
+      @media (max-width: 500px) {
+        width: 8rem;
+        font-size: 1rem;
+      }
 
       &:focus {
         outline: none;
@@ -230,4 +247,4 @@ const Container = styled.div`
   }
 `;
 
-export default UpdateUser
+export default UpdateUser;

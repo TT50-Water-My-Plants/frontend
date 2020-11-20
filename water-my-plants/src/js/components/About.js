@@ -25,6 +25,10 @@ const StyledImgDiv = styled.div`
   align-items: center;
   background-color: #b8d5cd;
   border-radius: 5%;
+  @media (max-width: 500px) {
+    text-align: center;
+    height: 30%;
+  }
 `;
 
 const StyledImg = styled.img`
@@ -32,10 +36,17 @@ const StyledImg = styled.img`
   height: auto;
   border-radius: 100%;
   margin-bottom: 3%;
+  @media (max-width: 500px) {
+    width: 80px;
+    height: auto;
+  }
 `;
 
 const StyledTitle = styled.h1`
   font-size: 2.5rem;
+  @media (max-width: 500px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export default function About() {

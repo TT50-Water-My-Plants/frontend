@@ -10,12 +10,20 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  @media (max-width: 500px) {
+    height: 5vh;
+  }
 `;
 
 const StyledText = styled.span`
   color: white;
   text-shadow: 2px 2px black;
   font-size: 1.5rem;
+
+  @media (max-width: 500px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -24,6 +32,9 @@ const StyledButton = styled.button`
   padding: 0.5rem;
   font-weight: bold;
   border-radius: 2%;
+  @media (max-width: 500px) {
+    padding: 0.2rem;
+  }
 `;
 
 function Header({ isLoggedIn, setLoggedStatus }) {
@@ -34,7 +45,7 @@ function Header({ isLoggedIn, setLoggedStatus }) {
     setLoggedStatus(false);
     history.push("/login");
   };
-  
+
   return (
     <div>
       {isLoggedIn ? (

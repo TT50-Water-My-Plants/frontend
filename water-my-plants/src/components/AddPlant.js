@@ -12,6 +12,9 @@ const StyledDiv = styled.div`
   background-color: #b8d5cd;
   justify-content: center;
   align-items: center;
+  @media (max-width: 500px) {
+    flex-direction: row;
+  }
 `;
 
 const StyledDropdownForm = styled.form`
@@ -22,6 +25,9 @@ const StyledDropdownForm = styled.form`
   justify-content: center;
   text-align: center;
   background-color: white;
+  @media (max-width: 500px) {
+    height: 30vh;
+  }
 `;
 
 const StyledForm = styled.form`
@@ -38,6 +44,9 @@ const StyledForm = styled.form`
   justify-content: center;
   line-height: 1.5;
   font-size: 1.4rem;
+  @media (max-width: 500px) {
+    font-size: 1rem;
+  }
 `;
 
 const StyledButton = styled.button`
