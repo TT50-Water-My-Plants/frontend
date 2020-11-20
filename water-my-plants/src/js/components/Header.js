@@ -5,11 +5,28 @@ import { connect } from "react-redux";
 import { setLoggedStatus } from "../../actions";
 
 const StyledDiv = styled.div`
+max-width:100;
   background-image: url("https://images.unsplash.com/photo-1525923838299-2312b60f6d69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=564&q=80");
   height: 10vh;
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  a:link {
+    text-decoration: none;
+  }
+
+  a:visited {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  a:active {
+    text-decoration: none;
+  }
 
   @media (max-width: 500px) {
     height: 5vh;
@@ -17,9 +34,14 @@ const StyledDiv = styled.div`
 `;
 
 const StyledText = styled.span`
-  color: white;
-  text-shadow: 2px 2px black;
-  font-size: 1.5rem;
+  background-color: green;
+  color: whitesmoke;
+  text-decoration: none;
+
+  padding: 0.4rem;
+  font-size: 20px;
+  border: 1px white solid;
+  border-radius: 3px;
 
   @media (max-width: 500px) {
     font-size: 0.8rem;
@@ -27,14 +49,16 @@ const StyledText = styled.span`
 `;
 
 const StyledButton = styled.button`
-  background-color: white;
-  color: #006a4e;
-  padding: 0.5rem;
-  font-weight: bold;
-  border-radius: 2%;
+  background-color: green;
+  color:whitesmoke;
+ text-decoration:none ; 
+  padding: .4rem;
+  font-size:20px;
+  border: 1px white solid;
+  border-radius: 3px;
   @media (max-width: 500px) {
     padding: 0.2rem;
-  }
+  }:
 `;
 
 function Header({ isLoggedIn, setLoggedStatus }) {
@@ -50,29 +74,29 @@ function Header({ isLoggedIn, setLoggedStatus }) {
     <div>
       {isLoggedIn ? (
         <StyledDiv>
-          <Link to="/dashboard">
+          <Link to='/dashboard'>
             <StyledText>Dashboard</StyledText>
           </Link>
-          <Link to="/add-plant">
+          <Link to='/add-plant'>
             <StyledText>Add Plant</StyledText>
           </Link>
-          <Link to="/account">
+          <Link to='/account'>
             <StyledText>Account</StyledText>
           </Link>
           <StyledButton onClick={handleLogout}>Logout</StyledButton>
         </StyledDiv>
       ) : (
         <StyledDiv>
-          <Link to="/">
-            <StyledText>Home</StyledText>
+          <Link to='/'>
+            <StyledText className={"navlink"}>Home</StyledText>
           </Link>
-          <Link to="/about">
+          <Link to='/about'>
             <StyledText>About</StyledText>
           </Link>
-          <Link to="/register">
+          <Link to='/register'>
             <StyledText>Register</StyledText>
           </Link>
-          <Link to="/login">
+          <Link to='/login'>
             <StyledText>Login</StyledText>
           </Link>
         </StyledDiv>
@@ -81,12 +105,12 @@ function Header({ isLoggedIn, setLoggedStatus }) {
   );
 }
 
-const mapStateToProps = state => ({
-  isLoggedIn: state.isLoggedIn
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.isLoggedIn,
 });
 
 const mapDispatchToProps = {
-  setLoggedStatus
+  setLoggedStatus,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
