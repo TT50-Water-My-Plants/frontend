@@ -67,7 +67,7 @@ const StyledSecondButton = styled.button`
 const StyledParaTag = styled.p`
   font-size: 0.75rem;
 `;
-function AddPlant({ user, setUser, plants, addPlant, setUserPlants }) {
+function AddPlant({ user, setUser, plants, setPlants, addPlant, setUserPlants }) {
 
   useEffect(() => {
     if(user === undefined) {
@@ -81,6 +81,11 @@ function AddPlant({ user, setUser, plants, addPlant, setUserPlants }) {
         console.log(err);
       });
     }
+    axiosWithAuth()
+      .get(`/api/plants`)
+      .then(res => {
+        setPlants(res.data);
+      });
   }, [])
 
   const [form, setForm] = useState({
