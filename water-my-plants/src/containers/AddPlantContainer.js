@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import AddPlant from "../components/AddPlant"
-import { addPlant, setUserPlants } from "../actions"
+import { addPlant, setUserPlants, setUser } from "../actions"
 
 const mapStateToProps = (state) => ({
   user: state.user,
@@ -9,7 +9,8 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = {
   addPlant,
-  setUserPlants
+  setUserPlants,
+  setUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPlant)

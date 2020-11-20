@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
 import schema from "./addPlantValidation";
@@ -67,7 +67,22 @@ const StyledSecondButton = styled.button`
 const StyledParaTag = styled.p`
   font-size: 0.75rem;
 `;
-function AddPlant({ user, plants, addPlant, setUserPlants }) {
+function AddPlant({ user, setUser, plants, addPlant, setUserPlants }) {
+
+  useEffect(() => {
+    if(user === undefined) {
+      const id = localStorage.getItem("user_id");
+    axiosWithAuth()
+      .get(`/api/account/${id}`)
+      .then(res => {
+        setUser(res.data.user);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+  }, [])
+
   const [form, setForm] = useState({
     nickname: "",
     species: "",

@@ -1,13 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
 
-function UpdateUser({ user, setUser, setLoggedStatus }) {
-  // const { user, setUser } = useContext(UserContext);
+function UpdateUser({ user, setUser }) {
+  useEffect(() => {
+    if(user === null) {
+      const id = localStorage.getItem("user_id");
+    axiosWithAuth()
+      .get(`/api/account/${id}`)
+      .then(res => {
+        setUser(res.data.user);
+        setUpdatedUser({
+          ...updatedUser,
+          phone_number: res.data.user.phone_number
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+  }, [])
 
   const [updatedUser, setUpdatedUser] = useState({
     password: "",
-    phone_number: user.phone_number,
+    phone_number: user ? user.phone_number : "",
   });
 
   const [errMessage, setErrMessage] = useState("");
@@ -74,7 +90,7 @@ function UpdateUser({ user, setUser, setLoggedStatus }) {
     <Container>
       <div className='user-card'>
         <div className='user-card'>
-          <h3>Welcome {user.username},</h3>
+          <h3>Welcome {user ? user.username : null},</h3>
           <p></p>
         </div>
       </div>
@@ -106,9 +122,6 @@ function UpdateUser({ user, setUser, setLoggedStatus }) {
 }
 
 const Container = styled.div`
-
-
-
   .error {
     margin-top: 2rem;
     width: 100%;
@@ -139,36 +152,23 @@ const Container = styled.div`
   }
 
   .user-card {
-
     background: #006A4E;
     max-width: 100%;
     height:8vh;
-    
     border-radius:5px;
     color: white;
     font-size:30px;
-
-
     .card- {
-display:flex;
+      display:flex;
       max-width: 90%;
       align-items: center;
-
-     
-      }
-
-    
-      
-
-      
-      }
     }
   }
 
   form {
-display:flex;
+    display:flex;
     flex-direction: column;
-align-items:center;
+    align-items:center;
 
     input {
       margin: 5px;
@@ -177,7 +177,6 @@ align-items:center;
       background: white;
       border: 3px #006A4E solid;
       border-radius: 5px;
-      
       font-size: 30px;
       letter-spacing: 0.25rem;
       @media (max-width: 500px) {
@@ -209,6 +208,6 @@ align-items:center;
       }
     }
   }
-`;
+`
 
 export default UpdateUser;
