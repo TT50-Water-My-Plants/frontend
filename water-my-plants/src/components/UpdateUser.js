@@ -1,13 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
 
-function UpdateUser({ user, setUser, setLoggedStatus }) {
-  // const { user, setUser } = useContext(UserContext);
+function UpdateUser({ user, setUser }) {
+  useEffect(() => {
+    if(user === null) {
+      const id = localStorage.getItem("user_id");
+    axiosWithAuth()
+      .get(`/api/account/${id}`)
+      .then(res => {
+        setUser(res.data.user);
+        setUpdatedUser({
+          ...updatedUser,
+          phone_number: res.data.user.phone_number
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+  }, [])
 
   const [updatedUser, setUpdatedUser] = useState({
     password: "",
-    phone_number: user.phone_number,
+    phone_number: user ? user.phone_number : "",
   });
 
   const [errMessage, setErrMessage] = useState("");
@@ -74,7 +90,7 @@ function UpdateUser({ user, setUser, setLoggedStatus }) {
     <Container>
       <div className='user-card'>
         <div className='user-card'>
-          <h3>Welcome {user.username},</h3>
+          <h3>Welcome {user ? user.username : null},</h3>
           <p></p>
         </div>
       </div>
