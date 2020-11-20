@@ -7,22 +7,22 @@ function UpdateUser({ user, setUser, setLoggedStatus }) {
 
   const [updatedUser, setUpdatedUser] = useState({
     password: "",
-    phone_number: user.phone_number
+    phone_number: user.phone_number,
   });
 
   const [errMessage, setErrMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setErrMessage("");
     setSuccessMessage("");
     setUpdatedUser({
       ...updatedUser,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const updateAccount = e => {
+  const updateAccount = (e) => {
     e.preventDefault();
     setErrMessage("");
     setSuccessMessage("");
@@ -32,11 +32,11 @@ function UpdateUser({ user, setUser, setLoggedStatus }) {
     ) {
       axiosWithAuth()
         .put(`/api/account/${user.id}`, updatedUser)
-        .then(res => {
+        .then((res) => {
           setUser(res.data);
           setSuccessMessage("Infomation Updates");
         })
-        .catch(err => {
+        .catch((err) => {
           setErrMessage("Failed to update info");
         });
     } else if (
@@ -46,23 +46,23 @@ function UpdateUser({ user, setUser, setLoggedStatus }) {
       console.log("correct");
       axiosWithAuth()
         .put(`/api/account/${user.id}`, { password: updatedUser.password })
-        .then(res => {
+        .then((res) => {
           setUser(res.data);
           setSuccessMessage("Password Updated");
         })
-        .catch(err => {
+        .catch((err) => {
           setErrMessage("Failed to update password");
         });
     } else if (updatedUser.phone_number !== user.phone_number) {
       axiosWithAuth()
         .put(`/api/account/${user.id}`, {
-          phone_number: updatedUser.phone_number
+          phone_number: updatedUser.phone_number,
         })
-        .then(res => {
+        .then((res) => {
           setUser(res.data);
           setSuccessMessage("Phone Number Updated");
         })
-        .catch(err => {
+        .catch((err) => {
           setErrMessage("Failed to update phone number");
         });
     } else {
@@ -72,43 +72,42 @@ function UpdateUser({ user, setUser, setLoggedStatus }) {
 
   return (
     <Container>
-      <div className="user-card">
-        <div className="card-avatar"></div>
-
-        <div className="card-info">
+      <div className='user-card'>
+        <div className='user-card'>
           <h3>Welcome {user.username},</h3>
-          <p>What would you like to update?</p>
+          <p></p>
         </div>
       </div>
 
-      <h4>Update Account:</h4>
-      {errMessage && <div className="error">{errMessage}</div>}
-      {successMessage && <div className="success">{successMessage}</div>}
+      <h4>Account Information:</h4>
+      {errMessage && <div className='error'>{errMessage}</div>}
+      {successMessage && <div className='success'>{successMessage}</div>}
       <form onSubmit={updateAccount}>
         <input
-          type="text"
-          name="phone_number"
-          placeholder="New Phone Number"
+          type='text'
+          name='phone_number'
+          placeholder='New Phone Number'
           value={updatedUser.phone_number}
           onChange={handleChange}
-          autoComplete="off"
+          autoComplete='off'
         />
         <input
-          type="password"
-          name="password"
-          placeholder="New Password"
+          type='password'
+          name='password'
+          placeholder='New Password'
           value={updatedUser.password}
           onChange={handleChange}
-          autoComplete="off"
+          autoComplete='off'
         />
-        <button type="submit">Update Account</button>
+        <button type='submit'>Update</button>
       </form>
     </Container>
   );
 }
 
 const Container = styled.div`
-  width: 60%;
+
+
 
   .error {
     margin-top: 2rem;
@@ -126,96 +125,61 @@ const Container = styled.div`
     text-align: center;
     color: green;
     font-size: 1.4rem;
-    font-weight: bold;
-    letter-spacing: 0.1rem;
   }
 
-  h3 {
-    font-size: 3rem;
-    font-weight: 500;
-    letter-spacing: 0.1rem;
-    color: black;
-  }
-
+ 
   h4 {
-    margin: 5rem 0 2rem;
-    font-size: 2.4rem;
-    font-weight: 300;
-    letter-spacing: 0.1rem;
-    color: #444444;
-    padding-bottom: 1rem;
-    border-bottom: 1px dotted #444444;
+      display:flex;
+      justify-content:center;
+    color: black;
+    border-bottom: 0.5px solid black;
     @media (max-width: 500px) {
-      font-size: 1.2rem;
+      font-size: 30px;
     }
   }
 
   .user-card {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    background: #d1ffd6;
-    width: 100%;
-    padding: 1.5rem 1rem;
-    border-radius: 0.3rem;
-    letter-spacing: 0.1rem;
-    color: #444444;
-    box-shadow: 0px 2px 5px -5px;
 
-    .card-avatar {
-      width: 25%;
+    background: #006A4E;
+    max-width: 100%;
+    height:8vh;
+    
+    border-radius:5px;
+    color: white;
+    font-size:30px;
 
-      img {
-        width: 100%;
-        object-fit: cover;
-        border: 1px solid #444444;
-        border-radius: 50%;
-      }
-    }
 
-    .card-info {
-      width: 70%;
-      padding-left: 1rem;
+    .card- {
+display:flex;
+      max-width: 90%;
+      align-items: center;
 
-      h3 {
-        font-size: 1.8rem;
-        font-weight: 300;
-        margin-bottom: 1rem;
-        @media (max-width: 500px) {
-          font-size: 1.2rem;
-        }
+     
       }
 
-      p {
-        font-size: 1.6rem;
-        font-weight: 300;
-        @media (max-width: 500px) {
-          font-size: 1.2rem;
-        }
-      }
+    
+      
 
-      .strong {
-        font-weight: 700;
+      
       }
     }
   }
 
   form {
-    display: flex;
+display:flex;
     flex-direction: column;
-    align-items: center;
+align-items:center;
 
     input {
-      margin: 1rem 0;
-      width: 25rem;
-      height: 3.5rem;
-      background: #bfbfbf;
-      border: none;
-      border-radius: 0.3rem;
-      padding: 0.5rem 0.5rem 0.5rem 1rem;
-      font-size: 1.2rem;
-      font-weight: 300;
-      letter-spacing: 0.1rem;
+      margin: 5px;
+      width: 300px;
+      height: 50px;
+      background: white;
+      border: 3px #006A4E solid;
+      border-radius: 5px;
+      
+      font-size: 30px;
+      letter-spacing: 0.25rem;
       @media (max-width: 500px) {
         width: 8rem;
         font-size: 1rem;
@@ -223,25 +187,25 @@ const Container = styled.div`
 
       &:focus {
         outline: none;
-        border: 1px solid #ababab;
+        border: 1px solid white;
       }
     }
 
     button {
-      width: 20rem;
-      height: 3.5rem;
-      margin: 2rem 0 1rem;
-      background: #d1ffd6;
-      border: none;
-      border-radius: 0.3rem;
+      width: 300px;
+      height: 50px;
+      margin: 10px;
+      font-size:30px;
+      color:white;
+      background: #006A4E;
       transition: all 100ms;
-      box-shadow: 0px 2px 5px -5px;
-      letter-spacing: 0.1rem;
+      border-radius:3%;
 
       &:hover {
         transition: background 100ms;
         cursor: pointer;
-        background: #afdeb4;
+        font-size:30px;
+        background: #006A4E;
       }
     }
   }
