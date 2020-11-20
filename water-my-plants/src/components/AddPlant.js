@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../auth/axiosWithAuth";
 import styled from "styled-components";
 import schema from "./addPlantValidation";
@@ -49,7 +49,22 @@ const StyledButton = styled.button`
 const StyledParaTag = styled.p`
   font-size: 0.75rem;
 `;
-function AddPlant({ user, plants, addPlant, setUserPlants }) {
+function AddPlant({ user, setUser, plants, addPlant, setUserPlants }) {
+
+  useEffect(() => {
+    if(user === undefined) {
+      const id = localStorage.getItem("user_id");
+    axiosWithAuth()
+      .get(`/api/account/${id}`)
+      .then(res => {
+        setUser(res.data.user);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+  }, [])
+
   const [form, setForm] = useState({
     nickname: "",
     species: "",
@@ -61,8 +76,8 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
   const intialErrors = {
     nickname: "",
     species: "",
-    h2o_frequency_day: "0",
-    h2o_frequency_hour: "0"
+    h2o_frequency_day: "",
+    h2o_frequency_hour: ""
   };
   const [errorState, setErrorState] = useState(intialErrors);
   const [statusMsg, setStatusMsg] = useState("");
@@ -238,7 +253,6 @@ function AddPlant({ user, plants, addPlant, setUserPlants }) {
             <option value="14">
               14 Days
             </option>
-
           </select>
           <select name="h2o_frequency_hour" id="h2o_frequency_hour" value={form.h2o_frequency_hour} onChange={handleChange}>
             <option value="0">
