@@ -12,35 +12,53 @@ const StyledDiv = styled.div`
   background-color: #b8d5cd;
   justify-content: center;
   align-items: center;
+  @media (max-width: 500px) {
+    flex-direction: row;
+  }
 `;
 
 const StyledDropdownForm = styled.form`
-  width: 30%;
+  width: 40%;
   height: 10vh;
-  background-color: #b8d5cd;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+  @media (max-width: 500px) {
+    height: 30vh;
+  }
 `;
 
 const StyledForm = styled.form`
   color: white;
   text-shadow: 2px 2px black;
   background-color: #006a4e;
-  border-radius: 5%;
   width: 40%;
   padding: 2.5%;
   margin: 1%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   justify-content: center;
   line-height: 1.5;
   font-size: 1.4rem;
+  @media (max-width: 500px) {
+    font-size: 1rem;
+  }
 `;
 
 const StyledButton = styled.button`
   background-color: white;
+  width: 30%;
+  color: #006a4e;
+  padding: 3px;
+  border-radius: 2%;
+`;
+const StyledSecondButton = styled.button`
+  background-color: white;
+  width: 50%;
   color: #006a4e;
   padding: 3px;
   border-radius: 2%;
@@ -132,9 +150,12 @@ function AddPlant({ user, setUser, plants, addPlant, setUserPlants }) {
     const finalForm = {
       nickname: form.nickname,
       species: form.species,
-      h2o_frequency: form.h2o_frequency_day === "0" ? `${form.h2o_frequency_hour} hours` : `${form.h2o_frequency_day} days ${form.h2o_frequency_hour} hours`
-    }
-    console.log(finalForm)
+      h2o_frequency:
+        form.h2o_frequency_day === "0"
+          ? `${form.h2o_frequency_hour} hours`
+          : `${form.h2o_frequency_day} days ${form.h2o_frequency_hour} hours`
+    };
+    console.log(finalForm);
     axiosWithAuth()
       .post(`/api/plants`, finalForm)
       .then(res => {
@@ -154,24 +175,9 @@ function AddPlant({ user, setUser, plants, addPlant, setUserPlants }) {
   };
   return (
     <StyledDiv>
-      <StyledDropdownForm onSubmit={selectPlantSubmit}>
-        <div>
-          <select value={selectValue} onChange={selectChange}>
-            Plants
-            {plants.map(plant => {
-              return (
-                <option key={plant.id} id={plant.id} value={plant.id}>
-                  {plant.nickname}
-                </option>
-              );
-            })}
-          </select>
-          <StyledButton>Add Plant</StyledButton>
-          <p>{statusMsg}</p>
-        </div>
-      </StyledDropdownForm>
       <StyledForm onSubmit={onSubmit}>
         <div>
+          <h3>Create a new plant:</h3>
           <label htmlFor="nickname">
             Nickname:
             <br />
@@ -207,129 +213,59 @@ function AddPlant({ user, setUser, plants, addPlant, setUserPlants }) {
           <div>
             <label>H20 Frequency:</label>
           </div>
-          <select name="h2o_frequency_day" id="h2o_frequency_day" value={form.h2o_frequency_day} onChange={handleChange}>
-            <option value="0">
-              0 Days
-            </option>
-            <option value="1">
-              1 Day
-            </option>
-            <option value="2">
-              2 Days
-            </option>
-            <option value="3">
-              3 Days
-            </option>
-            <option value="4">
-              4 Days
-            </option>
-            <option value="5">
-              5 Days
-            </option>
-            <option value="6">
-              6 Days
-            </option>
-            <option value="7">
-              7 Days
-            </option>
-            <option value="8">
-              8 Days
-            </option>
-            <option value="9">
-              9 Days
-            </option>
-            <option value="10">
-              10 Days
-            </option>
-            <option value="11">
-              11 Days
-            </option>
-            <option value="12">
-              12 Days
-            </option>
-            <option value="13">
-              13 Days
-            </option>
-            <option value="14">
-              14 Days
-            </option>
+          <select
+            name="h2o_frequency_day"
+            id="h2o_frequency_day"
+            value={form.h2o_frequency_day}
+            onChange={handleChange}
+          >
+            <option value="0">0 Days</option>
+            <option value="1">1 Day</option>
+            <option value="2">2 Days</option>
+            <option value="3">3 Days</option>
+            <option value="4">4 Days</option>
+            <option value="5">5 Days</option>
+            <option value="6">6 Days</option>
+            <option value="7">7 Days</option>
+            <option value="8">8 Days</option>
+            <option value="9">9 Days</option>
+            <option value="10">10 Days</option>
+            <option value="11">11 Days</option>
+            <option value="12">12 Days</option>
+            <option value="13">13 Days</option>
+            <option value="14">14 Days</option>
           </select>
-          <select name="h2o_frequency_hour" id="h2o_frequency_hour" value={form.h2o_frequency_hour} onChange={handleChange}>
-            <option value="0">
-              0 Hours
-            </option>
-            <option value="1">
-              1 Hours
-            </option>
-            <option value="2">
-              2 Hours
-            </option>
-            <option value="3">
-              3 Hours
-            </option>
-            <option value="4">
-              4 Hours
-            </option>
-            <option value="5">
-              5 Hours
-            </option>
-            <option value="6">
-              6 Hours
-            </option>
-            <option value="7">
-              7 Hours
-            </option>
-            <option value="8">
-              8 Hours
-            </option>
-            <option value="9">
-              9 Hours
-            </option>
-            <option value="10">
-              10 Hours
-            </option>
-            <option value="11">
-              11 Hours
-            </option>
-            <option value="12">
-              12 Hours
-            </option>
-            <option value="13">
-              13 Hours
-            </option>
-            <option value="14">
-              14 Hours
-            </option>
-            <option value="15">
-              15 Hours
-            </option>
-            <option value="16">
-              16 Hours
-            </option>
-            <option value="17">
-              17 Hours
-            </option>
-            <option value="18">
-              18 Hours
-            </option>
-            <option value="19">
-              19 Hours
-            </option>
-            <option value="20">
-              20 Hours
-            </option>
-            <option value="21">
-              21 Hours
-            </option>
-            <option value="22">
-              22 Hours
-            </option>
-            <option value="23">
-              23 Hours
-            </option>
-            <option value="24">
-              24 Hours
-            </option>
+          <select
+            name="h2o_frequency_hour"
+            id="h2o_frequency_hour"
+            value={form.h2o_frequency_hour}
+            onChange={handleChange}
+          >
+            <option value="0">0 Hours</option>
+            <option value="1">1 Hours</option>
+            <option value="2">2 Hours</option>
+            <option value="3">3 Hours</option>
+            <option value="4">4 Hours</option>
+            <option value="5">5 Hours</option>
+            <option value="6">6 Hours</option>
+            <option value="7">7 Hours</option>
+            <option value="8">8 Hours</option>
+            <option value="9">9 Hours</option>
+            <option value="10">10 Hours</option>
+            <option value="11">11 Hours</option>
+            <option value="12">12 Hours</option>
+            <option value="13">13 Hours</option>
+            <option value="14">14 Hours</option>
+            <option value="15">15 Hours</option>
+            <option value="16">16 Hours</option>
+            <option value="17">17 Hours</option>
+            <option value="18">18 Hours</option>
+            <option value="19">19 Hours</option>
+            <option value="20">20 Hours</option>
+            <option value="21">21 Hours</option>
+            <option value="22">22 Hours</option>
+            <option value="23">23 Hours</option>
+            <option value="24">24 Hours</option>
           </select>
           <StyledParaTag data-cy="h2o-err">
             {errorState.h2o_frequency_day}
@@ -337,8 +273,25 @@ function AddPlant({ user, setUser, plants, addPlant, setUserPlants }) {
           </StyledParaTag>
         </div>
         <br />
-        <StyledButton>Add Plant</StyledButton>
+        <StyledButton>Create Plant</StyledButton>
       </StyledForm>
+      <StyledDropdownForm onSubmit={selectPlantSubmit}>
+        <div>
+          <h3>Select a plant to add to your Dashboard:</h3>
+          <select value={selectValue} onChange={selectChange}>
+            Plants
+            {plants.map(plant => {
+              return (
+                <option key={plant.id} id={plant.id} value={plant.id}>
+                  {plant.nickname}
+                </option>
+              );
+            })}
+          </select>
+          <StyledSecondButton>Add Plant</StyledSecondButton>
+          <p>{statusMsg}</p>
+        </div>
+      </StyledDropdownForm>
     </StyledDiv>
   );
 }

@@ -28,6 +28,11 @@ const StyledForm = styled.div`
   justify-content: center;
   line-height: 1.5;
   font-size: 1.4rem;
+  @media (max-width: 500px) {
+    width: 50%;
+    font-size: 1rem;
+    text-align: center;
+  }
 `;
 
 const StyledImg = styled.img`
